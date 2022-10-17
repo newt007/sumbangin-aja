@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <style name="SumbanginAjaTextStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="SumbanginAjaTextStyle.Regular">
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+    
+    <style name="SumbanginAjaTextStyle.Bold">
+        <item name="android:fontFamily">@font/lato_bold</item>
+    </style>
+
+</resources>
