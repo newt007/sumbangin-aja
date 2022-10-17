@@ -1,5 +1,7 @@
 package com.bintangpoetra.sumbanginaja.di
 
+import com.bintangpoetra.sumbanginaja.BuildConfig
+import com.bintangpoetra.sumbanginaja.data.auth.remote.AuthService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -19,10 +21,11 @@ val networkModule = module {
 
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("TES")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
+        retrofit.create(AuthService::class.java)
     }
 
 }
