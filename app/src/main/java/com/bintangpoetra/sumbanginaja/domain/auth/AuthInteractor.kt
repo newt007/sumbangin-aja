@@ -10,13 +10,20 @@ import kotlinx.coroutines.flow.flowOn
 class AuthInteractor(
     private val repository: AuthRepository
 ): AuthUseCase {
+
     override fun loginUser(email: String, password: String): Flow<ApiResponse<User>> {
         return repository.loginUser(email, password)
             .flowOn(Dispatchers.IO)
     }
 
-    override fun registerUser(): Flow<ApiResponse<User>> {
-        return repository.registerUser()
+    override fun registerUser(
+        name: String,
+        email: String,
+        password: String,
+        type: String
+    ): Flow<ApiResponse<User>> {
+        return repository.registerUser(name, email, password, type)
             .flowOn(Dispatchers.IO)
     }
+
 }

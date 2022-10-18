@@ -1,16 +1,22 @@
 package com.bintangpoetra.sumbanginaja.presentation.splash
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.databinding.FragmentSplashBinding
+import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 
 class SplashFragment: Fragment() {
 
     private var _fragmentSplashBinding: FragmentSplashBinding? = null
-    private val binding get() = _fragmentSplashBinding!!
+
+    private lateinit var pref: PreferenceManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,6 +29,19 @@ class SplashFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        pref = PreferenceManager(requireContext())
+        initLoading()
+    }
+
+    private fun initLoading() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (pref.isLogin) {
+                findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+            } else {
+                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            }
+        }, 1500)
     }
 
 }

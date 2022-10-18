@@ -16,6 +16,12 @@ interface AuthService {
     ): BaseResponse<UserItem>
 
     @POST("register")
-    suspend fun registerUser(): BaseResponse<UserItem>
+    @FormUrlEncoded
+    suspend fun registerUser(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("type") type: String
+    ): BaseResponse<UserItem>
 
 }

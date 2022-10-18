@@ -30,10 +30,15 @@ class AuthDataStore(
         }
     }
 
-    override fun registerUser(): Flow<ApiResponse<User>> = flow {
+    override fun registerUser(
+        name: String,
+        email: String,
+        password: String,
+        type: String
+    ): Flow<ApiResponse<User>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.registerUser()
+            val response = api.registerUser(name, email, password, type)
 
             if (response.status) {
                 val userData = response.data.toDomain()
