@@ -8,6 +8,11 @@ interface AuthUseCase {
 
     fun loginUser(email: String, password: String): Flow<ApiResponse<User>>
 
-    fun registerUser(): Flow<ApiResponse<User>>
+    fun registerUser(
+        name: String,
+        email: String,
+        password: String,
+        type: String
+    ): Flow<ApiResponse<User>>
 
 }

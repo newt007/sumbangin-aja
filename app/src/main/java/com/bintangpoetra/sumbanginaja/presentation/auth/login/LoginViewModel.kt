@@ -13,23 +13,11 @@ class LoginViewModel(
     val loginUserResult: LiveData<ApiResponse<User>> by lazy { _loginUserResult }
     private val _loginUserResult = MutableLiveData<ApiResponse<User>>()
 
-    val registerUserResult: LiveData<ApiResponse<User>> by lazy { _registerUserResult }
-    private val _registerUserResult = MutableLiveData<ApiResponse<User>>()
-
     fun loginUser(email: String, password: String) {
         viewModelScope.launch {
             authUseCase.loginUser(email, password)
                 .collect {
                     _loginUserResult.value = it
-                }
-        }
-    }
-
-    fun registerUser() {
-        viewModelScope.launch {
-            authUseCase.registerUser()
-                .collect {
-                    _registerUserResult.value = it
                 }
         }
     }

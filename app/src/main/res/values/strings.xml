@@ -2,4 +2,27 @@
     <string name="app_name">SumbanginAja</string>
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>
+    <string name="label_join_as_sumbangers">Bergabung Menjadi \nSumbangers</string>
+    <string name="label_login">Masuk</string>
+    <string name="label_login_subtitle">Yuk masuk akunmu untuk lanjut</string>
+    <string name="label_email">Email</string>
+    <string name="hint_email_address">Alamat Email</string>
+    <string name="label_password">Kata Sandi</string>
+    <string name="hint_password">Kata Sandi</string>
+    <string name="action_login">Masuk</string>
+    <string name="label_login_with">atau login dengan</string>
+    <string name="action_login_with_google">Login Dengan Google</string>
+    <string name="label_havent_account"><u>Belum punya akun ? Daftar</u></string>
+    <string name="error_must_not_empty">Password tidak boleh kosong</string>
+    <string name="error_email_not_valid">Email tidak valid</string>
+    <string name="error_email_must_not_empty">Email tidak boleh kosong</string>
+    <string name="label_full_name">Nama Lengkap</string>
+    <string name="hint_full_name">Nama Lengkap</string>
+    <string name="label_register_agreement">Dengan membuat akun berarti kamu setuju dengan <b>Ketentuan Layanan</b> sumbanginaja</string>
+    <string name="action_register">Buat Akun</string>
+    <string name="label_register_with">atau daftar dengan</string>
+    <string name="action_register_with_google">Daftar dengan Google</string>
+    <string name="label_have_registered"><u>Udah daftar ? Login disini</u></string>
+    <string name="error_name_must_not_empty">Nama lengkap tidak boleh kosong</string>
+    <string name="message_register_successfull">Register Berhasil, silahkan login dengan akun anda :)</string>
 </resources>
