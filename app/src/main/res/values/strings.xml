@@ -2,4 +2,7 @@
     <string name="app_name">SumbanginAja</string>
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>
+    <string name="label_looking_for">Mau cari apa ?</string>
+    <string name="label_food_around_you">Makanan di sekitarmu</string>
+    <string name="label_show_all">Lihat selengkapnya</string>
 </resources>

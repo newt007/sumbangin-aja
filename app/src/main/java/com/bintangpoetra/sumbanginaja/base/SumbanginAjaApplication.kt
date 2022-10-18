@@ -2,6 +2,7 @@ package com.bintangpoetra.sumbanginaja.base
 
 import android.app.Application
 import com.bintangpoetra.sumbanginaja.di.feature.authModule
+import com.bintangpoetra.sumbanginaja.di.feature.foodModule
 import com.bintangpoetra.sumbanginaja.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -22,7 +23,8 @@ class SumbanginAjaApplication: Application() {
             modules(
                 listOf(
                     networkModule,
-                    authModule
+                    authModule,
+                    foodModule
                 )
             )
         }

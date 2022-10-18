@@ -20,5 +20,4 @@ class HomeFragment: Fragment() {
         _fragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
         return _fragmentHomeBinding?.root
     }
-
 }

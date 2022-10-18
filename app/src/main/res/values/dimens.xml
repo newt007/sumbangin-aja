@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="space_quarter">2dp</dimen>
+    <dimen name="space_half">4dp</dimen>
+    <dimen name="space_xhalf">6dp</dimen>
+    <dimen name="space">8dp</dimen>
+    <dimen name="spacex">12dp</dimen>
+    <dimen name="spacexx">14dp</dimen>
+    <dimen name="space_double">16dp</dimen>
+    <dimen name="space_xdouble">20dp</dimen>
+    <dimen name="space_triple">24dp</dimen>
+    <dimen name="space_quadruple">32dp</dimen>
+    <dimen name="space_quintuple">40dp</dimen>
+    <dimen name="space_xtra">48dp</dimen>
+    <dimen name="space_xxtra">56dp</dimen>
+    <dimen name="space_xxxtra">64dp</dimen>
+    <dimen name="space_xtra_minus">-48dp</dimen>
+</resources>
