@@ -12,5 +12,9 @@ object ConstVal {
     const val KEY_IS_LOGIN = "key.isLogin"
     const val KEY_NAME = "key.name"
     const val KEY_ROLE = "key.role"
+    const val KEY_PHONE_NUMBER = "key.phonenumber"
+    const val KEY_TOKEN = "key.token"
+    const val KEY_ADDRESS = "key.address"
+    const val KEY_EMAIL = "key.email"
 
 }
