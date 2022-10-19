@@ -16,9 +16,9 @@ class AccountViewModel(
     val profileDetailResult: LiveData<ApiResponse<User>> by lazy { _profileDetailResult }
     private val _profileDetailResult = MutableLiveData<ApiResponse<User>>()
 
-    fun getProfileDetail(token: String) {
+    fun getProfileDetail() {
         viewModelScope.launch {
-            authUseCase.getProfileDetail(token)
+            authUseCase.getProfileDetail()
                 .collect {
                     _profileDetailResult.value = it
                 }

@@ -14,7 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField("String", "BASE_URL", '"https://sumbangin.jelajahin.com/api/"')
+        buildConfigField("String", "BASE_URL", '"https://sumbangin.jelajahin.com/api/v1/"')
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

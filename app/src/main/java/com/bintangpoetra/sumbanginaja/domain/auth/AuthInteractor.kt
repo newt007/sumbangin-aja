@@ -26,8 +26,8 @@ class AuthInteractor(
             .flowOn(Dispatchers.IO)
     }
 
-    override fun getProfileDetail(token: String): Flow<ApiResponse<User>> {
-        return repository.getProfileDetail(token)
+    override fun getProfileDetail(): Flow<ApiResponse<User>> {
+        return repository.getProfileDetail()
             .flowOn(Dispatchers.IO)
     }
 
