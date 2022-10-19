@@ -6,6 +6,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.EditText
+import com.airbnb.lottie.LottieAnimationView
+import com.bintangpoetra.sumbanginaja.R
 import com.facebook.shimmer.ShimmerFrameLayout
 
 fun View.show() {
