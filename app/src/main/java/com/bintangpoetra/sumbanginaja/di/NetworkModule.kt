@@ -2,6 +2,7 @@ package com.bintangpoetra.sumbanginaja.di
 
 import com.bintangpoetra.sumbanginaja.BuildConfig
 import com.bintangpoetra.sumbanginaja.data.auth.remote.AuthService
+import com.bintangpoetra.sumbanginaja.data.food.remote.FoodService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -20,12 +21,19 @@ val networkModule = module {
     }
 
     single {
-        val retrofit = Retrofit.Builder()
+        Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
-        retrofit.create(AuthService::class.java)
     }
 
+    single { provideFoodService(get()) }
+
+    single { provideAuthService(get()) }
+
 }
+
+fun provideAuthService(retrofit: Retrofit): AuthService = retrofit.create(AuthService::class.java)
+
+fun provideFoodService(retrofit: Retrofit): FoodService = retrofit.create(FoodService::class.java)
