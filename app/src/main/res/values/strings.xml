@@ -25,4 +25,9 @@
     <string name="label_have_registered"><u>Udah daftar ? Login disini</u></string>
     <string name="error_name_must_not_empty">Nama lengkap tidak boleh kosong</string>
     <string name="message_register_successfull">Register Berhasil, silahkan login dengan akun anda :)</string>
+    <string name="label_looking_for">Mau cari apa ?</string>
+    <string name="label_food_around_you">Makanan di sekitarmu</string>
+    <string name="label_show_all">Lihat selengkapnya</string>
+    <string name="label_food_type">Food</string>
+    <string name="label_non_food_type">Non-Food</string>
 </resources>

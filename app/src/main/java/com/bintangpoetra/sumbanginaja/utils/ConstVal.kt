@@ -1,11 +1,9 @@
 package com.bintangpoetra.sumbanginaja.utils
 
 object ConstVal {
-
     const val SPLASH_DELAY_TIME = 1500L
 
     const val PREFS_NAME = "sumbanginaja.pref"
-
 
     const val KEY_USER_ID = "key.user.id"
     const val KEY_USER_NAME = "key.user.name"

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimen_8dp"
+    android:elevation="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvFood"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="@dimen/dimen_8dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:id="@+id/imgFood"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:background="#DFDFDF"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <TextView
+            android:id="@+id/tvFoodName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            style="@style/SumbanginAjaTextStyle.Bold.Heading3"
+            app:layout_constraintStart_toEndOf="@+id/cvFood"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="NAMA MAKANAN" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgFoodOwner"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toEndOf="@+id/cvFood"
+            app:layout_constraintTop_toBottomOf="@+id/tvFoodName"
+            android:background="@color/colorDarkGrey" />
+
+        <TextView
+            android:id="@+id/tv_food_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgFoodOwner"
+            app:layout_constraintStart_toEndOf="@+id/imgFoodOwner"
+            app:layout_constraintTop_toBottomOf="@+id/tvFoodName"
+            tools:text="NAMA PEMILIK" />
+
+        <ImageView
+            android:id="@+id/img_pin"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_location"
+            app:layout_constraintStart_toEndOf="@+id/cvFood"
+            app:layout_constraintTop_toBottomOf="@+id/imgFoodOwner"/>
+
+        <TextView
+            android:id="@+id/tvFoodOwnerAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_pin"
+            app:layout_constraintStart_toEndOf="@+id/imgFoodOwner"
+            app:layout_constraintTop_toBottomOf="@+id/imgFoodOwner"
+            tools:text="NAMA Alamat" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

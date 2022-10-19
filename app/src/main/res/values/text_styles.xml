@@ -41,6 +41,10 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="SumbanginAjaTextStyle.Bold.Heading3">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="SumbanginAjaTextStyle.Bold.Heading2.DarkGrey">
         <item name="android:textColor">@color/colorDarkGrey</item>
     </style>
