@@ -30,4 +30,7 @@
     <string name="label_show_all">Lihat selengkapnya</string>
     <string name="label_food_type">Food</string>
     <string name="label_non_food_type">Non-Food</string>
+    <string name="label_phone">No Telepon</string>
+    <string name="hint_phone">No telepon</string>
+    <string name="hint_address">Alamat</string>
 </resources>

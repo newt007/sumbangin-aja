@@ -6,6 +6,7 @@ import com.bintangpoetra.sumbanginaja.domain.auth.AuthInteractor
 import com.bintangpoetra.sumbanginaja.domain.auth.AuthUseCase
 import com.bintangpoetra.sumbanginaja.presentation.auth.login.LoginViewModel
 import com.bintangpoetra.sumbanginaja.presentation.auth.register.RegisterViewModel
+import com.bintangpoetra.sumbanginaja.presentation.profile.account.AccountViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -19,4 +20,6 @@ val authModule = module {
 
     viewModel { LoginViewModel(get()) }
     viewModel { RegisterViewModel(get()) }
+    viewModel { AccountViewModel(get()) }
+
 }

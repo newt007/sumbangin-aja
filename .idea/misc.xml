@@ -3,12 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/drawable/bg_bordered_edit_text.xml" value="0.152" />
+        <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/drawable/bg_rounded_white.xml" value="0.152" />
         <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/layout/fragment_account.xml" value="0.264" />
         <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/layout/fragment_home.xml" value="0.4" />
+        <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/layout/fragment_login.xml" value="0.264" />
+        <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
+        <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/layout/fragment_register.xml" value="0.264" />
         <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/layout/fragment_login.xml" value="0.4010416666666667" />
         <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
         <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/layout/fragment_register.xml" value="0.4" />
         <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/layout/fragment_splash.xml" value="0.264" />
+        <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/layout/layout_custom_setting_button.xml" value="0.2" />
         <entry key="..\:/Project/AndroidProject/SumbanginAja/app/src/main/res/menu/main_menu.xml" value="0.4" />
         <entry key="app/src/main/res/drawable/bg_chip.xml" value="0.2015" />
         <entry key="app/src/main/res/drawable/bg_chip_selected.xml" value="0.2015" />

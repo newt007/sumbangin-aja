@@ -11,6 +11,7 @@ import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentLoginBinding
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_ADDRESS
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_EMAIL
+import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_IS_LOGIN
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_NAME
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_TOKEN
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_USER_NAME
@@ -47,7 +48,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun initUI() {
-        binding.pbLogin.setAnimation(R.raw.loading_lottie)
+        binding.lottieLogin.initLottie()
     }
 
     private fun initAction() {
@@ -79,7 +80,7 @@ class LoginFragment : Fragment() {
             when (response) {
                 is ApiResponse.Loading -> {
                     binding.let {
-                        showLoading(it.pbLogin, it.viewBgDimmer)
+                        showLoading(it.viewBgWhite, it.viewBgDimmer)
                     }
                 }
                 is ApiResponse.Success -> {
@@ -89,17 +90,18 @@ class LoginFragment : Fragment() {
                         setStringPreference(KEY_EMAIL, response.data.email)
                         setStringPreference(KEY_ADDRESS, response.data.address)
                         setStringPreference(KEY_TOKEN, response.data.token)
+                        setBooleanPreference(KEY_IS_LOGIN, true)
                     }
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
                 is ApiResponse.Error -> {
                     binding.let {
-                        hideLoading(it.pbLogin, it.viewBgDimmer)
+                        hideLoading(it.viewBgWhite, it.viewBgDimmer)
                     }
                 }
                 else -> {
                     binding.let {
-                        hideLoading(it.pbLogin, it.viewBgDimmer)
+                        hideLoading(it.viewBgWhite, it.viewBgDimmer)
                     }
                 }
             }
