@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/tvLoginTitle"
-        android:text="@string/label_join_as_sumbangers"
-        android:layout_width="wrap_content"
+    <Toolbar
+        android:id="@+id/toolbarAccount"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_16dp"
-        android:layout_marginTop="@dimen/dimen_32dp"
         app:layout_constraintTop_toTopOf="parent"
+        android:navigationIcon="@drawable/ic_arrow_back"/>
+
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:src="@drawable/ic_account"
+        android:layout_width="@dimen/dimen_100dp"
+        android:layout_height="@dimen/dimen_100dp"
+        android:layout_marginTop="@dimen/dimen_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        style="@style/SumbanginAjaTextStyle.Bold.Heading1"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarAccount"/>
 
     <TextView
         android:id="@+id/tvFullNameLabel"
@@ -21,8 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_24dp"
-        app:layout_constraintStart_toStartOf="@id/tvLoginTitle"
-        app:layout_constraintTop_toBottomOf="@id/tvLoginTitle"
+        android:layout_marginStart="@dimen/dimen_16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgProfile"
         style="@style/SumbanginAjaTextStyle.Regular.Heading4.DarkGrey"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -51,7 +59,7 @@
         android:text="@string/label_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_24dp"
         app:layout_constraintStart_toStartOf="@id/tilFullName"
         app:layout_constraintTop_toBottomOf="@id/tilFullName"
         style="@style/SumbanginAjaTextStyle.Regular.Heading4.DarkGrey"/>
@@ -78,114 +86,67 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/tvPasswordLabel"
-        android:text="@string/label_password"
+        android:id="@+id/tvPhoneLabel"
+        android:text="@string/label_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_16dp"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        app:layout_constraintStart_toStartOf="@id/tilEmail"
         app:layout_constraintTop_toBottomOf="@id/tilEmail"
-        app:layout_constraintStart_toStartOf="@id/tilEmail"/>
+        style="@style/SumbanginAjaTextStyle.Regular.Heading4.DarkGrey"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPassword"
+        android:id="@+id/tilPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_password"
+        android:hint="@string/hint_phone"
         android:layout_marginHorizontal="@dimen/dimen_16dp"
         android:layout_marginTop="12dp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        app:passwordToggleEnabled="true"
-        app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel">
+        app:layout_constraintTop_toBottomOf="@id/tvPhoneLabel">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtPassword"
+            android:id="@+id/edtPhone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textPassword"
+            android:inputType="textEmailAddress"
             android:padding="@dimen/dimen_20dp"
-            android:background="@drawable/bg_bordered_edit_text"/>
+            android:background="@drawable/bg_bordered_edit_text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/tvAgreement"
-        android:layout_width="0dp"
+        android:id="@+id/tvAddressLabel"
+        android:text="@string/label_phone"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/label_register_agreement"
-        android:layout_margin="@dimen/dimen_16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilPassword"
+        android:layout_marginTop="@dimen/dimen_24dp"
+        app:layout_constraintStart_toStartOf="@id/tilPhone"
+        app:layout_constraintTop_toBottomOf="@id/tilPhone"
         style="@style/SumbanginAjaTextStyle.Regular.Heading4.DarkGrey"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegister"
-        style="@style/SumbanginAjaButton.WhiteText"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/hint_address"
         android:layout_marginHorizontal="@dimen/dimen_16dp"
-        android:layout_marginTop="@dimen/dimen_16dp"
-        android:minHeight="0dp"
-        android:paddingVertical="@dimen/dimen_16dp"
-        android:text="@string/action_register"
-        app:layout_constraintTop_toBottomOf="@+id/tvAgreement" />
+        android:layout_marginTop="12dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tvAddressLabel">
 
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="@dimen/dimen_16dp"
-        app:layout_constraintEnd_toStartOf="@id/tvLoginWith"
-        app:layout_constraintStart_toStartOf="parent"
-        app:dividerColor="@color/colorSoftGrey"
-        app:layout_constraintTop_toTopOf="@id/tvLoginWith"
-        app:layout_constraintBottom_toBottomOf="@id/tvLoginWith" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtAddress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:lines="4"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/dimen_20dp"
+            android:background="@drawable/bg_bordered_edit_text" />
 
-    <TextView
-        android:id="@+id/tvLoginWith"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_register_with"
-        android:layout_marginTop="@dimen/dimen_24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="@dimen/dimen_16dp"
-        app:layout_constraintStart_toEndOf="@id/tvLoginWith"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:dividerColor="@color/colorSoftGrey"
-        app:layout_constraintTop_toTopOf="@id/tvLoginWith"
-        app:layout_constraintBottom_toBottomOf="@id/tvLoginWith" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegisterGoogle"
-        android:text="@string/action_register_with_google"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="0dp"
-        android:paddingVertical="@dimen/dimen_16dp"
-        android:layout_marginTop="@dimen/dimen_16dp"
-        android:layout_marginHorizontal="@dimen/dimen_16dp"
-        app:icon="@drawable/googlelogo"
-        app:iconTintMode="add"
-        app:iconTint="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLoginWith"
-        style="@style/SumbanginAjaButtonOutline.StrokeGrey" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnHaventAccount"
-        android:text="@string/label_have_registered"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_20dp"
-        style="@style/SumbanginAjaTextButton.WhiteText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnRegisterGoogle"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <View
         android:id="@+id/viewBgDimmer"
@@ -207,7 +168,7 @@
         android:visibility="gone">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottieRegister"
+            android:id="@+id/lottieAccount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 

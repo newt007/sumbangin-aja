@@ -7,7 +7,6 @@ import com.bintangpoetra.sumbanginaja.domain.auth.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
-import java.lang.Exception
 
 class AuthDataStore(
     private val api: AuthService
@@ -39,6 +38,23 @@ class AuthDataStore(
         try {
             emit(ApiResponse.Loading)
             val response = api.registerUser(name, email, password, type)
+
+            if (response.status) {
+                val userData = response.data.toDomain()
+                emit(ApiResponse.Success(userData))
+            } else {
+                emit(ApiResponse.Error(response.message))
+            }
+        } catch (ex: Exception) {
+            emit(ApiResponse.Error(ex.toString()))
+            Timber.e(ex.toString())
+        }
+    }
+
+    override fun getProfileDetail(token: String): Flow<ApiResponse<User>> = flow {
+        try {
+            emit(ApiResponse.Loading)
+            val response = api.getProfileDetail(token)
 
             if (response.status) {
                 val userData = response.data.toDomain()

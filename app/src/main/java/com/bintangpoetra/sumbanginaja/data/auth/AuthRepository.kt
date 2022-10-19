@@ -15,4 +15,8 @@ interface AuthRepository {
         type: String
     ): Flow<ApiResponse<User>>
 
+    fun getProfileDetail(
+        token: String
+    ): Flow<ApiResponse<User>>
+
 }

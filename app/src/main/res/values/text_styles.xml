@@ -17,12 +17,20 @@
         <item name="android:fontFamily">@font/lato_bold</item>
     </style>
 
+    <style name="SumbanginAjaTextStyle.Regular.Heading5">
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="SumbanginAjaTextStyle.Regular.Heading4">
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="SumbanginAjaTextStyle.Regular.Heading3">
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="SumbanginAjaTextStyle.Regular.Heading5.Green">
+        <item name="android:textColor">@color/colorPrimaryGreen</item>
     </style>
 
     <style name="SumbanginAjaTextStyle.Regular.Heading3.White">
