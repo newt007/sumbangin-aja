@@ -9,6 +9,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val foodModule = module {
+
     factory<FoodUseCase> { FoodInteractor(get()) }
     factory<FoodRepository> { FoodDataStore(get()) }
 

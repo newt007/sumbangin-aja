@@ -13,7 +13,6 @@ class HomeViewModel(
     private val foodUseCase: FoodUseCase
 ) : ViewModel(){
 
-
     val foodResult: LiveData<ApiResponse<List<Food>>> by lazy { _foodResult }
     private val _foodResult = MutableLiveData<ApiResponse<List<Food>>>()
 
