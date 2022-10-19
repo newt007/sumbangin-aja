@@ -15,8 +15,6 @@ interface AuthUseCase {
         type: String
     ): Flow<ApiResponse<User>>
 
-    fun getProfileDetail(
-        token: String
-    ): Flow<ApiResponse<User>>
+    fun getProfileDetail(): Flow<ApiResponse<User>>
 
 }

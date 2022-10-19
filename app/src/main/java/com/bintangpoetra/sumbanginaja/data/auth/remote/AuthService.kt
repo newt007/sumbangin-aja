@@ -23,8 +23,6 @@ interface AuthService {
     ): BaseResponse<UserItem>
 
     @GET("get-profile")
-    suspend fun getProfileDetail(
-        @Header("Authorization") token: String
-    ): BaseResponse<UserItem>
+    suspend fun getProfileDetail(): BaseResponse<UserItem>
 
 }

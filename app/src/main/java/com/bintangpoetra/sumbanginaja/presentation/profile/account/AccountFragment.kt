@@ -5,15 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentAccountBinding
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.hideLoading
 import com.bintangpoetra.sumbanginaja.utils.ext.initLottie
 import com.bintangpoetra.sumbanginaja.utils.ext.showLoading
+import com.bintangpoetra.sumbanginaja.utils.ext.toBearer
 import org.koin.android.ext.android.inject
 
-class AccountFragment: Fragment() {
+class AccountFragment : Fragment() {
 
     private var _fragmentAccountBinding: FragmentAccountBinding? = null
     private val binding get() = _fragmentAccountBinding!!
@@ -40,18 +43,27 @@ class AccountFragment: Fragment() {
     }
 
     private fun initUI() {
-        binding.lottieAccount.initLottie()
+        binding.apply {
+            lottieAccount.initLottie()
+
+            toolbarAccount.apply {
+                title = context.getString(R.string.title_account)
+                setNavigationOnClickListener {
+                    it.findNavController().popBackStack()
+                }
+            }
+        }
     }
 
     private fun initProcess() {
         pref.getToken?.let { token ->
-            accountViewModel.getProfileDetail(token)
+            accountViewModel.getProfileDetail()
         }
     }
 
     private fun initObservers() {
         accountViewModel.profileDetailResult.observe(viewLifecycleOwner) { response ->
-            when(response) {
+            when (response) {
                 is ApiResponse.Loading -> {
                     binding.let {
                         showLoading(it.viewBgWhite, it.viewBgDimmer)

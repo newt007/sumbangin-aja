@@ -51,10 +51,10 @@ class AuthDataStore(
         }
     }
 
-    override fun getProfileDetail(token: String): Flow<ApiResponse<User>> = flow {
+    override fun getProfileDetail(): Flow<ApiResponse<User>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.getProfileDetail(token)
+            val response = api.getProfileDetail()
 
             if (response.status) {
                 val userData = response.data.toDomain()
