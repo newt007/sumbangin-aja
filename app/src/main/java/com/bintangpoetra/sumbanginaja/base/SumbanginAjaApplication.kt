@@ -4,6 +4,7 @@ import android.app.Application
 import com.bintangpoetra.sumbanginaja.di.feature.authModule
 import com.bintangpoetra.sumbanginaja.di.feature.foodModule
 import com.bintangpoetra.sumbanginaja.di.networkModule
+import com.bintangpoetra.sumbanginaja.di.preferenceModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -23,6 +24,7 @@ class SumbanginAjaApplication: Application() {
             modules(
                 listOf(
                     networkModule,
+                    preferenceModule,
                     authModule,
                     foodModule
                 )

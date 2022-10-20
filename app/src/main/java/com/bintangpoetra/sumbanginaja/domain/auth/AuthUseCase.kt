@@ -13,6 +13,10 @@ interface AuthUseCase {
         email: String,
         password: String,
         type: String
-    ): Flow<ApiResponse<User>>
+    ): Flow<ApiResponse<String>>
+
+    fun getProfileDetail(): Flow<ApiResponse<User>>
+
+    fun updateProfile(name: String, address: String): Flow<ApiResponse<User>>
 
 }

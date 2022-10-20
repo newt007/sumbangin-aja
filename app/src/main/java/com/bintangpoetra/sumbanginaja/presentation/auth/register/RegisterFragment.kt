@@ -38,7 +38,7 @@ class RegisterFragment: Fragment() {
     }
 
     private fun initUI() {
-        binding.pbRegister.setAnimation(R.raw.loading_lottie)
+        binding.lottieRegister.initLottie()
     }
 
     private fun initAction() {
@@ -74,22 +74,22 @@ class RegisterFragment: Fragment() {
             when (response) {
                 is ApiResponse.Loading -> {
                     binding.let {
-                        showLoading(it.pbRegister, it.viewBgDimmer)
+                        showLoading(it.viewBgWhite, it.viewBgDimmer)
                     }
                 }
                 is ApiResponse.Success -> {
-                    showToast(getString(R.string.message_register_successfull))
+                    showToast(response.data)
                     requireView().findNavController().popBackStack()
 
                 }
                 is ApiResponse.Error -> {
                     binding.let {
-                        hideLoading(it.pbRegister, it.viewBgDimmer)
+                        hideLoading(it.viewBgWhite, it.viewBgDimmer)
                     }
                 }
                 else -> {
                     binding.let {
-                        hideLoading(it.pbRegister, it.viewBgDimmer)
+                        hideLoading(it.viewBgWhite, it.viewBgDimmer)
                     }
                 }
             }

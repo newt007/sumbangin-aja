@@ -6,8 +6,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.EditText
-import android.widget.ProgressBar
-import androidx.navigation.fragment.findNavController
+import com.airbnb.lottie.LottieAnimationView
+import com.bintangpoetra.sumbanginaja.R
 import com.facebook.shimmer.ShimmerFrameLayout
 
 fun View.show() {
@@ -100,4 +100,8 @@ fun View.popTap(){
     val scaleUp = AnimatorSet()
     scaleUp.play(scaleUpX).with(scaleUpY).after(scaleDown)
     scaleUp.start()
+}
+
+fun LottieAnimationView.initLottie() {
+    setAnimation(R.raw.loading_lottie)
 }

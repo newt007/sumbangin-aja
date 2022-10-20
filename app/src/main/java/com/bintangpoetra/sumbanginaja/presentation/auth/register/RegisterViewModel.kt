@@ -13,8 +13,8 @@ class RegisterViewModel(
     private val authUseCase: AuthUseCase
 ): ViewModel() {
 
-    val registerUserResult: LiveData<ApiResponse<User>> by lazy { _registerUserResult }
-    private val _registerUserResult = MutableLiveData<ApiResponse<User>>()
+    val registerUserResult: LiveData<ApiResponse<String>> by lazy { _registerUserResult }
+    private val _registerUserResult = MutableLiveData<ApiResponse<String>>()
 
     fun registerUser(
         name: String,
