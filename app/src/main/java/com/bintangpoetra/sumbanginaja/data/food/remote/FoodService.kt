@@ -7,14 +7,11 @@ import retrofit2.http.*
 interface FoodService {
 
     @GET("foods")
-    suspend fun fetchFood(
-        @Header("accept") accept: String,
-        @Header("Authorization") token: String): BaseResponse<List<FoodItem>>
+    suspend fun fetchFood(): BaseResponse<List<FoodItem>>
 
     @GET("foods/{id}/show")
     suspend fun fetchFoodDetail(
-        @Path("id") id: Int,
-        @Header("accept") accept: String,
-        @Header("Authorization") token: String): BaseResponse<FoodItem>
+        @Path("id") id: Int
+    ): BaseResponse<FoodItem>
 
 }

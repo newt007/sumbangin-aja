@@ -55,9 +55,17 @@ fun showLoading(loadingView: View, view: View) {
     view.show()
 }
 
+fun showLoading(loadingView: View) {
+    loadingView.show()
+}
+
 fun hideLoading(loadingView: View, view: View) {
     loadingView.gone()
     view.gone()
+}
+
+fun hideLoading(loadingView: View) {
+    loadingView.gone()
 }
 
 fun showShimmerLoading(loadingView: ShimmerFrameLayout, view: View) {

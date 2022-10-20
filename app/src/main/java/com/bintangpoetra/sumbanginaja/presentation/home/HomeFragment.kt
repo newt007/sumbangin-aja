@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
@@ -115,7 +116,8 @@ class HomeFragment : Fragment() {
 
     private fun initAdapter() {
         adapter = FoodAdapter { foodId ->
-            //Navigate to detail
+            val action = HomeFragmentDirections.actionHomeFragmentToFoodDetailFragment(foodId)
+            findNavController().navigate(action)
         }
         binding.rvHome.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

@@ -15,7 +15,7 @@ class FoodDataStore(
     override fun fetchFood(): Flow<ApiResponse<List<Food>>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.fetchFood("application/json", "Bearer 12|uENKa2lxwNuWZtBi883WDpkEJZXFcAfc7CbPzTwb")
+            val response = api.fetchFood()
 
 //            if (response.status) {
 //                val foodData = response.data.toListDomain()
@@ -34,7 +34,7 @@ class FoodDataStore(
     override fun fetchFoodDetail(id: Int): Flow<ApiResponse<Food>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.fetchFoodDetail(id,"application/json", "Bearer 12|uENKa2lxwNuWZtBi883WDpkEJZXFcAfc7CbPzTwb")
+            val response = api.fetchFoodDetail(id)
 
 //            if (response.status) {
 //                val foodData = response.data.toListDomain()

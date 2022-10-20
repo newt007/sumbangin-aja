@@ -24,7 +24,11 @@
         android:id="@+id/homeFragment"
         android:name="com.bintangpoetra.sumbanginaja.presentation.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_foodDetailFragment"
+            app:destination="@id/foodDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.bintangpoetra.sumbanginaja.presentation.auth.login.LoginFragment"
@@ -64,5 +68,14 @@
         android:id="@+id/accountFragment"
         android:name="com.bintangpoetra.sumbanginaja.presentation.profile.account.AccountFragment"
         android:label="AccountFragment" />
+    <fragment
+        android:id="@+id/foodDetailFragment"
+        android:name="com.bintangpoetra.sumbanginaja.presentation.food.FoodDetailFragment"
+        android:label="FoodDetailFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
 </navigation>
