@@ -7,6 +7,7 @@ import com.bintangpoetra.sumbanginaja.data.lib.HeaderInterceptor
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit

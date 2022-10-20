@@ -41,4 +41,12 @@
     <string name="action_save">Simpan</string>
     <string name="error_address_must_not_empty">Alamat tidak boleh kosong</string>
     <string name="message_update_profile_success">Update profil berhasil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_description">Deksripsi</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="label_location">Lokasi</string>
+    <string name="label_open_map">Buka Peta</string>
+    <string name="label_call_food_ranger">Hubungi Food Ranger</string>
+
 </resources>

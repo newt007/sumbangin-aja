@@ -14,4 +14,9 @@ class FoodInteractor(
     override fun fetchFood(): Flow<ApiResponse<List<Food>>> {
         return repository.fetchFood().flowOn(Dispatchers.IO)
     }
+
+    override fun fetchFoodDetail(id: Int): Flow<ApiResponse<Food>> {
+        return repository.fetchFoodDetail(id).flowOn(Dispatchers.IO)
+    }
+
 }

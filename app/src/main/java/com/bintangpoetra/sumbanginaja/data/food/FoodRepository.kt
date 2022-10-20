@@ -9,6 +9,6 @@ interface FoodRepository {
 
     fun fetchFood(): Flow<ApiResponse<List<Food>>>
 
-    fun fetchFoodDetail(): Flow<ApiResponse<Food>>
+    fun fetchFoodDetail(id: Int): Flow<ApiResponse<Food>>
 
 }

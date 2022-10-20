@@ -8,5 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface FoodUseCase {
 
     fun fetchFood(): Flow<ApiResponse<List<Food>>>
+    fun fetchFoodDetail(id: Int): Flow<ApiResponse<Food>>
 
 }
