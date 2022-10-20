@@ -12,6 +12,8 @@ data class FoodItem (
     val descriptions: String?,
     @SerializedName("payback_time")
     val paybackTime: String?,
+    val latitude: Double?,
+    val longitude: Double?,
     @SerializedName("created_at")
     val createdAt: String?,
     @SerializedName("updated_at")

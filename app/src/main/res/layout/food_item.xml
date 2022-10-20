@@ -54,7 +54,7 @@
             android:layout_marginTop="6dp"
             app:layout_constraintStart_toEndOf="@+id/cvFood"
             app:layout_constraintTop_toBottomOf="@+id/tvFoodName"
-            android:background="@color/colorDarkGrey" />
+             />
 
         <TextView
             android:id="@+id/tv_food_owner"
@@ -83,9 +83,21 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_8dp"
             android:layout_marginTop="@dimen/dimen_8dp"
+            android:maxLines="2"
             app:layout_constraintBottom_toBottomOf="@+id/img_pin"
             app:layout_constraintStart_toEndOf="@+id/imgFoodOwner"
             app:layout_constraintTop_toBottomOf="@+id/imgFoodOwner"
+            tools:text="NAMA Alamat" />
+
+        <TextView
+            android:id="@+id/tvDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:layout_marginTop="@dimen/dimen_16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvFoodOwnerAddress"
             tools:text="NAMA Alamat" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
