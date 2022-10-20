@@ -21,13 +21,18 @@ class AuthInteractor(
         email: String,
         password: String,
         type: String
-    ): Flow<ApiResponse<User>> {
+    ): Flow<ApiResponse<String>> {
         return repository.registerUser(name, email, password, type)
             .flowOn(Dispatchers.IO)
     }
 
     override fun getProfileDetail(): Flow<ApiResponse<User>> {
         return repository.getProfileDetail()
+            .flowOn(Dispatchers.IO)
+    }
+
+    override fun updateProfile(name: String, address: String): Flow<ApiResponse<User>> {
+        return repository.updateProfile(name, address)
             .flowOn(Dispatchers.IO)
     }
 

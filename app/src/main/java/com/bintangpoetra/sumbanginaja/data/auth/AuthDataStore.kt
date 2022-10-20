@@ -1,6 +1,7 @@
 package com.bintangpoetra.sumbanginaja.data.auth
 
 import com.bintangpoetra.sumbanginaja.data.auth.remote.AuthService
+import com.bintangpoetra.sumbanginaja.data.lib.AlternateBaseResponse
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.domain.auth.mapper.toDomain
 import com.bintangpoetra.sumbanginaja.domain.auth.model.User
@@ -34,14 +35,14 @@ class AuthDataStore(
         email: String,
         password: String,
         type: String
-    ): Flow<ApiResponse<User>> = flow {
+    ): Flow<ApiResponse<String>> = flow {
         try {
             emit(ApiResponse.Loading)
             val response = api.registerUser(name, email, password, type)
 
             if (response.status) {
-                val userData = response.data.toDomain()
-                emit(ApiResponse.Success(userData))
+                val message = response.message
+                emit(ApiResponse.Success(message))
             } else {
                 emit(ApiResponse.Error(response.message))
             }
@@ -55,6 +56,23 @@ class AuthDataStore(
         try {
             emit(ApiResponse.Loading)
             val response = api.getProfileDetail()
+
+            if (response.status) {
+                val userData = response.data.toDomain()
+                emit(ApiResponse.Success(userData))
+            } else {
+                emit(ApiResponse.Error(response.message))
+            }
+        } catch (ex: Exception) {
+            emit(ApiResponse.Error(ex.toString()))
+            Timber.e(ex.toString())
+        }
+    }
+
+    override fun updateProfile(name: String, address: String): Flow<ApiResponse<User>> = flow {
+        try {
+            emit(ApiResponse.Loading)
+            val response = api.updateProfile(name, address)
 
             if (response.status) {
                 val userData = response.data.toDomain()

@@ -1,6 +1,7 @@
 package com.bintangpoetra.sumbanginaja.data.auth.remote
 
 import com.bintangpoetra.sumbanginaja.data.auth.model.UserItem
+import com.bintangpoetra.sumbanginaja.data.lib.AlternateBaseResponse
 import com.bintangpoetra.sumbanginaja.data.lib.BaseResponse
 import retrofit2.http.*
 
@@ -20,9 +21,17 @@ interface AuthService {
         @Field("email") email: String,
         @Field("password") password: String,
         @Field("type") type: String
-    ): BaseResponse<UserItem>
+    ): AlternateBaseResponse
 
     @GET("get-profile")
     suspend fun getProfileDetail(): BaseResponse<UserItem>
+
+    @POST("update-profile")
+    @FormUrlEncoded
+    suspend fun updateProfile(
+        @Field("name") name: String,
+        @Field("address") address: String
+    ): BaseResponse<UserItem>
+
 
 }

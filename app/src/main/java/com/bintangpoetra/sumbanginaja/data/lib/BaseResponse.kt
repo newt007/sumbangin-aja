@@ -10,3 +10,10 @@ data class BaseResponse<T>(
     @SerializedName("data")
     val data: T
 )
+
+data class AlternateBaseResponse(
+    @SerializedName("status")
+    val status: Boolean,
+    @SerializedName("message")
+    val message: String,
+)
