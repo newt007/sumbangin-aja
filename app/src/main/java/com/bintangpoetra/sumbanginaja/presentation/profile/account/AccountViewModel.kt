@@ -16,11 +16,23 @@ class AccountViewModel(
     val profileDetailResult: LiveData<ApiResponse<User>> by lazy { _profileDetailResult }
     private val _profileDetailResult = MutableLiveData<ApiResponse<User>>()
 
+    val updateProfileResult: LiveData<ApiResponse<User>> by lazy { _updateProfileResult }
+    private val _updateProfileResult = MutableLiveData<ApiResponse<User>>()
+
     fun getProfileDetail() {
         viewModelScope.launch {
             authUseCase.getProfileDetail()
                 .collect {
                     _profileDetailResult.value = it
+                }
+        }
+    }
+
+    fun updateProfile(name: String, address: String) {
+        viewModelScope.launch {
+            authUseCase.updateProfile(name, address)
+                .collect {
+                    _updateProfileResult.value = it
                 }
         }
     }

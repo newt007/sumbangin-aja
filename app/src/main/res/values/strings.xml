@@ -34,4 +34,11 @@
     <string name="hint_phone">No telepon</string>
     <string name="hint_address">Alamat</string>
     <string name="title_account">Akun</string>
+    <string name="action_logout">Keluar</string>
+    <string name="title_confirmation">Konfirmasi</string>
+    <string name="message_logout">Apakah anda yakin ingin keluar ?</string>
+    <string name="label_alamat">Alamat</string>
+    <string name="action_save">Simpan</string>
+    <string name="error_address_must_not_empty">Alamat tidak boleh kosong</string>
+    <string name="message_update_profile_success">Update profil berhasil</string>
 </resources>

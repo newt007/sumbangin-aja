@@ -78,7 +78,7 @@ class RegisterFragment: Fragment() {
                     }
                 }
                 is ApiResponse.Success -> {
-                    showToast(getString(R.string.message_register_successfull))
+                    showToast(response.data)
                     requireView().findNavController().popBackStack()
 
                 }

@@ -30,6 +30,14 @@ class PreferenceManager(context: Context) {
         editor.apply()
     }
 
+    fun clearAllPreferences() {
+        editor.remove(KEY_USER_ID)
+        editor.remove(KEY_IS_LOGIN)
+        editor.remove(KEY_NAME)
+        editor.remove(KEY_EMAIL)
+        editor.remove(KEY_TOKEN)
+    }
+
     val getUserId = prefs.getString(KEY_USER_ID, "")
     val isLogin = prefs.getBoolean(KEY_IS_LOGIN, false)
     val getUserName = prefs.getString(KEY_USER_NAME, "")

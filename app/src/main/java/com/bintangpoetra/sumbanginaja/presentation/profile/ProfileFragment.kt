@@ -10,8 +10,9 @@ import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.databinding.FragmentProfileBinding
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.click
+import com.bintangpoetra.sumbanginaja.utils.ext.showConfirmDialog
 
-class ProfileFragment: Fragment() {
+class ProfileFragment : Fragment() {
 
     private var _fragmentProfileBinding: FragmentProfileBinding? = null
     private val binding get() = _fragmentProfileBinding!!
@@ -47,7 +48,19 @@ class ProfileFragment: Fragment() {
             btnAccount.click {
                 findNavController().navigate(R.id.action_profileFragment_to_accountFragment)
             }
+            btnLogout.click {
+                showConfirmDialog(
+                    onPositiveClick = logout()
+                )
+            }
         }
+    }
+
+    private fun logout() {
+        pref.apply {
+            clearAllPreferences()
+        }
+        findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
     }
 
 }
