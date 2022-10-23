@@ -51,5 +51,6 @@
     <string name="label_give_food">Serahkan Makanan</string>
     <string name="label_scan_barcode_below">Scan Barcode Dibawah Ini</string>
     <string name="message_password_must_8_character">Password minimal harus 8 karakter</string>
+    <string name="title_my_food_list">Daftar Makanan Saya</string>
 
 </resources>

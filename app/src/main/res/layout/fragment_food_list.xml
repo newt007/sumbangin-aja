@@ -5,12 +5,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <Toolbar
+        android:id="@+id/toolbarFood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:navigationIcon="@drawable/ic_arrow_back"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHome"
         android:layout_marginTop="@dimen/dimen_8dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/toolbarFood"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/food_item" />
 

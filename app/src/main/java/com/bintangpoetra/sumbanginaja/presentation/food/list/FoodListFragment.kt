@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentFoodListBinding
 import com.bintangpoetra.sumbanginaja.presentation.home.adapter.FoodAdapter
@@ -36,14 +37,27 @@ class FoodListFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initUI()
+        initAction()
         initProcess()
         initObservers()
+    }
+
+    private fun initAction() {
+        binding.apply {
+            toolbarFood.setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
+        }
     }
 
     private fun initUI() {
         binding.rvHome.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvHome.adapter = this.adapter
+
+        binding.toolbarFood.apply {
+            title = context.getString(R.string.title_my_food_list)
+        }
     }
 
     private fun initProcess() {
