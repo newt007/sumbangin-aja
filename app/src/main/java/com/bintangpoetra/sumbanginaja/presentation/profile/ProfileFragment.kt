@@ -10,6 +10,8 @@ import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.databinding.FragmentProfileBinding
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.click
+import com.bintangpoetra.sumbanginaja.utils.ext.getPrefManager
+import com.bintangpoetra.sumbanginaja.utils.ext.showBarcodeDialog
 import com.bintangpoetra.sumbanginaja.utils.ext.showConfirmDialog
 
 class ProfileFragment : Fragment() {
@@ -17,7 +19,7 @@ class ProfileFragment : Fragment() {
     private var _fragmentProfileBinding: FragmentProfileBinding? = null
     private val binding get() = _fragmentProfileBinding!!
 
-    private lateinit var pref: PreferenceManager
+    private val pref: PreferenceManager by lazy { getPrefManager() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +32,6 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pref = PreferenceManager(requireContext())
 
         initUI()
         initAction()
@@ -50,8 +51,16 @@ class ProfileFragment : Fragment() {
             }
             btnLogout.click {
                 showConfirmDialog(
-                    onPositiveClick = logout()
+                    onPositiveClick = {
+                        logout()
+                    }
                 )
+            }
+            binding.btnQrCode.click {
+                showBarcodeDialog(pref.getUserId.toString())
+            }
+            btnFoodList.click {
+                findNavController().navigate(R.id.action_profileFragment_to_foodListFragment)
             }
             btnAddFood.click {
                 findNavController().navigate(R.id.action_profileFragment_to_addFoodFragment)

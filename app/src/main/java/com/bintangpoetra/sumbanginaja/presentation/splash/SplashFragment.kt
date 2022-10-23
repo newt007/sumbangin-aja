@@ -11,12 +11,13 @@ import androidx.navigation.fragment.findNavController
 import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.databinding.FragmentSplashBinding
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
+import com.bintangpoetra.sumbanginaja.utils.ext.getPrefManager
 
 class SplashFragment: Fragment() {
 
     private var _fragmentSplashBinding: FragmentSplashBinding? = null
 
-    private lateinit var pref: PreferenceManager
+    private val pref: PreferenceManager by lazy { getPrefManager() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +31,6 @@ class SplashFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        pref = PreferenceManager(requireContext())
         initLoading()
     }
 

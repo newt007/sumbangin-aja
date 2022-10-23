@@ -64,8 +64,8 @@
             app:launchSingleTop="true"
             app:popUpToInclusive="true"/>
         <action
-            android:id="@+id/action_profileFragment_to_addFoodFragment"
-            app:destination="@id/addFoodFragment" />
+            android:id="@+id/action_profileFragment_to_foodListFragment"
+            app:destination="@id/foodListFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -104,6 +104,14 @@
             android:name="idProvince"
             app:argType="integer"
             android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodListFragment"
+        android:name="com.bintangpoetra.sumbanginaja.presentation.food.list.FoodListFragment"
+        android:label="FoodListFragment" >
+        <action
+            android:id="@+id/action_foodListFragment_to_foodDetailFragment"
+            app:destination="@id/foodDetailFragment" />
     </fragment>
 
 </navigation>

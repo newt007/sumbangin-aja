@@ -21,3 +21,7 @@ fun String.toBearer(): String {
 fun String.toRequestBody(): RequestBody {
     return this.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 }
+
+fun String.isTheFoodOwner(id: String): Boolean {
+    return this == id
+}

@@ -9,6 +9,8 @@ import androidx.navigation.findNavController
 import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentFoodDetailBinding
+import com.bintangpoetra.sumbanginaja.domain.food.model.Food
+import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.*
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
@@ -26,6 +28,12 @@ class FoodDetailFragment : Fragment() {
     private lateinit var mMap: GoogleMap
     private var foodId = 0
 
+    private val pref: PreferenceManager by lazy { getPrefManager() }
+
+    private var isOwnedFood = false
+
+    private var mFood: Food? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,6 +49,7 @@ class FoodDetailFragment : Fragment() {
         initIntentData()
         initProcesses()
         initUI()
+        initAction()
         initObservers()
     }
 
@@ -63,6 +72,18 @@ class FoodDetailFragment : Fragment() {
         }
     }
 
+    private fun initAction() {
+        binding.apply {
+            btnDetailAction.click {
+                if (isOwnedFood) {
+                    showBarcodeDialog(mFood?.foodGenerateCode.toString())
+                } else {
+                    showToast("Food Ranger gasno")
+                }
+            }
+        }
+    }
+
     private fun initObservers() {
         foodDetailViewModel.foodDetailResult.observe(viewLifecycleOwner) { response ->
             Timber.d("Response is $response")
@@ -72,21 +93,23 @@ class FoodDetailFragment : Fragment() {
                 }
                 is ApiResponse.Success -> {
                     val food = response.data
+                    mFood = food
                     binding.apply {
-                        Glide.with(root.context)
-                            .load(food.images)
-                            .placeholder(R.color.colorSoftGrey)
-                            .into(imvFood)
-
-                        Glide.with(root.context)
-                            .load(food.user?.profileUsers)
-                            .placeholder(R.color.colorSoftGrey)
-                            .into(imvFoodOwner)
+                        imvFood.setImageUrl(food.images)
+                        imvFoodOwner.setImageUrl(food.user?.profileUsers.toString())
 
                         tvFoodName.text = food.name
                         tvFoodOwner.text = food.user?.name
                         tvFoodDescription.text = food.descriptions
                         tvAddress.text = food.user?.address
+
+                        if (food.user?.id.toString().isTheFoodOwner(pref.getUserId.toString())) {
+                            isOwnedFood = true
+                            btnDetailAction.text = getString(R.string.label_give_food)
+                        } else {
+                            isOwnedFood = false
+                            btnDetailAction.text = getString(R.string.label_call_food_ranger)
+                        }
 
                         val mapFragment =
                             childFragmentManager.findFragmentById(R.id.containerMap) as SupportMapFragment?
@@ -106,6 +129,7 @@ class FoodDetailFragment : Fragment() {
                 }
                 is ApiResponse.Error -> {
                     hideLoading(binding.loadingContainer)
+
                 }
                 else -> {
                     hideLoading(binding.loadingContainer)
@@ -113,6 +137,7 @@ class FoodDetailFragment : Fragment() {
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

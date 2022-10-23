@@ -14,6 +14,7 @@ import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_EMAIL
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_IS_LOGIN
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_NAME
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_TOKEN
+import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_USER_ID
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_USER_NAME
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.*
@@ -26,7 +27,7 @@ class LoginFragment : Fragment() {
 
     private val loginViewModel: LoginViewModel by inject()
 
-    private lateinit var pref: PreferenceManager
+    private val pref: PreferenceManager by lazy { getPrefManager() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +40,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        pref = PreferenceManager(requireContext())
 
         initUI()
         initObservers()
@@ -84,19 +83,13 @@ class LoginFragment : Fragment() {
                     }
                 }
                 is ApiResponse.Success -> {
-                    pref.apply {
-                        setStringPreference(KEY_NAME, response.data.name)
-                        setStringPreference(KEY_USER_NAME, response.data.profileUsers)
-                        setStringPreference(KEY_EMAIL, response.data.email)
-                        setStringPreference(KEY_ADDRESS, response.data.address)
-                        setStringPreference(KEY_TOKEN, response.data.token)
-                        setBooleanPreference(KEY_IS_LOGIN, true)
-                    }
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
                 is ApiResponse.Error -> {
                     binding.let {
                         hideLoading(it.viewBgWhite, it.viewBgDimmer)
+
+                        showOkDialog(getString(R.string.error_login_failed))
                     }
                 }
                 else -> {

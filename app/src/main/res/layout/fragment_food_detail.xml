@@ -174,7 +174,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnDetailAction"
         style="@style/SumbanginAjaButton.WhiteText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
