@@ -95,7 +95,7 @@ class FoodDetailFragment : Fragment() {
                     val food = response.data
                     mFood = food
                     binding.apply {
-                        imvFood.setImageUrl(food.images)
+                        imvFood.setImageUrl(food.images.toSumbanginAjaImageUrl())
                         imvFoodOwner.setImageUrl(food.user?.profileUsers.toString())
 
                         tvFoodName.text = food.name

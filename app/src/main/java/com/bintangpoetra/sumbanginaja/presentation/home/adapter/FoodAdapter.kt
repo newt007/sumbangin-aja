@@ -11,6 +11,7 @@ import com.bintangpoetra.sumbanginaja.domain.food.model.Food
 import com.bintangpoetra.sumbanginaja.utils.ext.orZero
 import com.bintangpoetra.sumbanginaja.utils.ext.setImageUrl
 import com.bintangpoetra.sumbanginaja.utils.ext.toDistance
+import com.bintangpoetra.sumbanginaja.utils.ext.toSumbanginAjaImageUrl
 import com.bumptech.glide.Glide
 import timber.log.Timber
 
@@ -70,7 +71,7 @@ class FoodAdapter(private val onClick: (id: Int) -> Unit) :
                 tvDistance.text = distance.toDistance()
 
                 imgFoodOwner.setImageUrl(food.user?.profileUsers.toString())
-                imgFood.setImageUrl(food.images)
+                imgFood.setImageUrl(food.images.toSumbanginAjaImageUrl())
             }
         }
     }

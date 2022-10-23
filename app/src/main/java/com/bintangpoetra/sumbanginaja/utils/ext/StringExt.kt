@@ -1,6 +1,7 @@
 package com.bintangpoetra.sumbanginaja.utils.ext
 
 import android.text.TextUtils
+import com.bintangpoetra.sumbanginaja.BuildConfig.BASE_URL
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -24,4 +25,8 @@ fun String.toRequestBody(): RequestBody {
 
 fun String.isTheFoodOwner(id: String): Boolean {
     return this == id
+}
+
+fun String.toSumbanginAjaImageUrl(): String {
+    return "https://sumbangin.jelajahin.com/$this"
 }
