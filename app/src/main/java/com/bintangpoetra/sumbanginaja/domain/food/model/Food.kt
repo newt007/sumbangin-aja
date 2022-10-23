@@ -13,6 +13,7 @@ data class Food(
     val status: String = emptyString(),
     val foodGenerateCode: String = emptyString(),
     val paybackTime: String = emptyString(),
+    val address: String = emptyString(),
     val latitude: Double = 0.0,
     val longitude: Double = 0.0,
     val createdAt: String = emptyString(),

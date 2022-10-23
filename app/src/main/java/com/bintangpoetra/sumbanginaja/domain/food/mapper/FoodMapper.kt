@@ -16,6 +16,7 @@ fun FoodItem.toDomain(): Food {
         status = this.status ?: emptyString(),
         foodGenerateCode = this.foodGenerateCode ?: emptyString(),
         paybackTime = this.paybackTime ?: emptyString(),
+        address = this.address ?: emptyString(),
         userID = this.userID.orZero(),
         latitude = this.latitude.orDefaultLatitude(),
         longitude = this.longitude.orDefaultLongitude(),

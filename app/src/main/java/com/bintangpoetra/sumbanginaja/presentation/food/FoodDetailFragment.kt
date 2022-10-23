@@ -21,7 +21,6 @@ import com.google.android.gms.maps.model.LatLng
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
-
 class FoodDetailFragment : Fragment() {
 
     private var _binding: FragmentFoodDetailBinding? = null
@@ -68,7 +67,7 @@ class FoodDetailFragment : Fragment() {
     private fun initUI() {
         binding.lottieLoading.initLottie()
         binding.toolbarAccount.apply {
-            title = context.getString(R.string.title_add_food)
+            title = context.getString(R.string.title_food_detail)
             setNavigationOnClickListener {
                 it.findNavController().popBackStack()
             }
@@ -108,7 +107,7 @@ class FoodDetailFragment : Fragment() {
                         tvFoodName.text = food.name
                         tvFoodOwner.text = food.user?.name
                         tvFoodDescription.text = food.descriptions
-                        tvAddress.text = food.user?.address
+                        tvAddress.text = food.address
 
                         if (food.user?.id.toString().isTheFoodOwner(pref.getUserId.toString())) {
                             isOwnedFood = true

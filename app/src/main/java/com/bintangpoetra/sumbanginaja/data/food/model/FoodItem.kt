@@ -15,6 +15,7 @@ data class FoodItem (
     val foodGenerateCode: String?,
     @SerializedName("payback_time")
     val paybackTime: String?,
+    val address: String?,
     val latitude: Double?,
     val longitude: Double?,
     @SerializedName("created_at")
