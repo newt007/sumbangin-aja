@@ -13,6 +13,7 @@ import androidmads.library.qrgenearator.QRGEncoder
 import androidx.fragment.app.DialogFragment
 import com.bintangpoetra.sumbanginaja.databinding.DialogBarcodeBinding
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_FOOD_CODE
+import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_RAW_STRING
 import com.bintangpoetra.sumbanginaja.utils.ext.showToast
 
 class BarcodeDialogFragment : DialogFragment() {
@@ -38,7 +39,7 @@ class BarcodeDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val foodCode = requireArguments().getString(KEY_FOOD_CODE, null)
+        val foodCode = requireArguments().getString(KEY_RAW_STRING, null)
 
         foodCode?.let {
             setupQR(it)

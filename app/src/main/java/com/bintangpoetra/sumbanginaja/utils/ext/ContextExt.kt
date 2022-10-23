@@ -23,6 +23,16 @@ fun Fragment.showConfirmDialog(onPositiveClick:() -> Unit){
     }.create().show()
 }
 
+fun Fragment.showOkDialog(message: String) {
+    AlertDialog.Builder(requireContext()).apply {
+        setTitle(getString(R.string.title_confirmation))
+        setMessage(message)
+        setPositiveButton("Ya") { dialog, _ ->
+            dialog.dismiss()
+        }
+    }.create().show()
+}
+
 fun Fragment.getPrefManager(): PreferenceManager {
     return PreferenceManager(this.requireContext())
 }

@@ -20,7 +20,8 @@ interface AuthRepository {
 
     fun updateProfile(
         name: String,
-        address: String
+        address: String,
+        phoneNumber: String
     ): Flow<ApiResponse<User>>
 
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.bintangpoetra.sumbanginaja.presentation.dialog.BarcodeDialogFragment
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_FOOD_CODE
+import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_RAW_STRING
 
 fun Fragment.showBarcodeDialog(foodCode: String) {
     val fragmentManager = parentFragmentManager
@@ -12,7 +13,7 @@ fun Fragment.showBarcodeDialog(foodCode: String) {
     val args = Bundle()
 
     with(args) {
-        args.putString(KEY_FOOD_CODE, foodCode)
+        args.putString(KEY_RAW_STRING, foodCode)
         dialogFragment.arguments = this
     }
 

@@ -11,6 +11,7 @@ import com.bintangpoetra.sumbanginaja.databinding.FragmentProfileBinding
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.click
 import com.bintangpoetra.sumbanginaja.utils.ext.getPrefManager
+import com.bintangpoetra.sumbanginaja.utils.ext.showBarcodeDialog
 import com.bintangpoetra.sumbanginaja.utils.ext.showConfirmDialog
 
 class ProfileFragment : Fragment() {
@@ -54,6 +55,9 @@ class ProfileFragment : Fragment() {
                         logout()
                     }
                 )
+            }
+            binding.btnQrCode.click {
+                showBarcodeDialog(pref.getUserId.toString())
             }
             btnFoodList.click {
                 findNavController().navigate(R.id.action_profileFragment_to_foodListFragment)

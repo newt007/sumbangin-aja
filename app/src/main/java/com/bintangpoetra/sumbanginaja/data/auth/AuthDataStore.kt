@@ -75,10 +75,10 @@ class AuthDataStore(
         }
     }
 
-    override fun updateProfile(name: String, address: String): Flow<ApiResponse<User>> = flow {
+    override fun updateProfile(name: String, address: String, phoneNumber: String): Flow<ApiResponse<User>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.updateProfile(name, address)
+            val response = api.updateProfile(name, address, phoneNumber)
 
             if (response.status) {
                 val userData = response.data.toDomain()

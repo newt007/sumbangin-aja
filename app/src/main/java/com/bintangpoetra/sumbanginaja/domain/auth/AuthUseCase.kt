@@ -17,6 +17,6 @@ interface AuthUseCase {
 
     fun getProfileDetail(): Flow<ApiResponse<User>>
 
-    fun updateProfile(name: String, address: String): Flow<ApiResponse<User>>
+    fun updateProfile(name: String, address: String, phoneNumber: String): Flow<ApiResponse<User>>
 
 }

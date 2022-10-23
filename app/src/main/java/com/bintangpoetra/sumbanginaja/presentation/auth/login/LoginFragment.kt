@@ -88,6 +88,8 @@ class LoginFragment : Fragment() {
                 is ApiResponse.Error -> {
                     binding.let {
                         hideLoading(it.viewBgWhite, it.viewBgDimmer)
+
+                        showOkDialog(getString(R.string.error_login_failed))
                     }
                 }
                 else -> {

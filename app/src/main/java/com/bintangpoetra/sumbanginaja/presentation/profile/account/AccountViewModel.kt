@@ -28,9 +28,9 @@ class AccountViewModel(
         }
     }
 
-    fun updateProfile(name: String, address: String) {
+    fun updateProfile(name: String, address: String, phoneNumber: String) {
         viewModelScope.launch {
-            authUseCase.updateProfile(name, address)
+            authUseCase.updateProfile(name, address, phoneNumber)
                 .collect {
                     _updateProfileResult.value = it
                 }

@@ -11,7 +11,7 @@ interface AuthService {
     @FormUrlEncoded
     suspend fun loginUser(
         @Field("email") email: String,
-        @Field("password") password: String
+        @Field("password") password: String,
     ): BaseResponse<UserItem>
 
     @POST("register")
@@ -30,7 +30,8 @@ interface AuthService {
     @FormUrlEncoded
     suspend fun updateProfile(
         @Field("name") name: String,
-        @Field("address") address: String
+        @Field("address") address: String,
+        @Field("no_handphone") phoneNumber: String
     ): BaseResponse<UserItem>
 
 

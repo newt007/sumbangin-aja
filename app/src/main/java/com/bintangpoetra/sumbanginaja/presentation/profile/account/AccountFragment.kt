@@ -59,6 +59,7 @@ class AccountFragment : Fragment() {
             btnSave.click {
                 val fullName = edtFullName.text.toString()
                 val address = edtAddress.text.toString()
+                val phoneNumber = edtPhone.text.toString()
 
                 when {
                     fullName.isEmpty() -> {
@@ -67,8 +68,11 @@ class AccountFragment : Fragment() {
                     address.isEmpty() -> {
                         edtAddress.showError(getString(R.string.error_address_must_not_empty))
                     }
+                    phoneNumber.isEmpty() -> {
+                        edtPhone.showError(getString(R.string.message_phone_must_not_empty))
+                    }
                     else -> {
-                        accountViewModel.updateProfile(fullName, address)
+                        accountViewModel.updateProfile(fullName, address, phoneNumber)
                     }
                 }
             }

@@ -31,8 +31,8 @@ class AuthInteractor(
             .flowOn(Dispatchers.IO)
     }
 
-    override fun updateProfile(name: String, address: String): Flow<ApiResponse<User>> {
-        return repository.updateProfile(name, address)
+    override fun updateProfile(name: String, address: String, phoneNumber: String): Flow<ApiResponse<User>> {
+        return repository.updateProfile(name, address, phoneNumber)
             .flowOn(Dispatchers.IO)
     }
 
