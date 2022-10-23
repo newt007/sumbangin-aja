@@ -62,9 +62,6 @@ class ProfileFragment : Fragment() {
             btnFoodList.click {
                 findNavController().navigate(R.id.action_profileFragment_to_foodListFragment)
             }
-            btnAddFood.click {
-                findNavController().navigate(R.id.action_profileFragment_to_addFoodFragment)
-            }
         }
     }
 

@@ -112,6 +112,9 @@
         <action
             android:id="@+id/action_foodListFragment_to_foodDetailFragment"
             app:destination="@id/foodDetailFragment" />
+        <action
+            android:id="@+id/action_foodListFragment_to_addFoodFragment"
+            app:destination="@id/addFoodFragment" />
     </fragment>
 
 </navigation>
