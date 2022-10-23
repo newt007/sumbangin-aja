@@ -1,23 +1,26 @@
 package com.bintangpoetra.sumbanginaja.presentation.food
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.bintangpoetra.sumbanginaja.BuildConfig.BASE_URL
 import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentFoodDetailBinding
 import com.bintangpoetra.sumbanginaja.domain.food.model.Food
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.*
-import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import org.koin.android.ext.android.inject
 import timber.log.Timber
+
 
 class FoodDetailFragment : Fragment() {
 
@@ -53,16 +56,16 @@ class FoodDetailFragment : Fragment() {
         initObservers()
     }
 
-    private fun initIntentData(){
+    private fun initIntentData() {
         val safeArgs = arguments?.let { FoodDetailFragmentArgs.fromBundle(it) }
         foodId = safeArgs?.id ?: 0
     }
 
-    private fun initProcesses(){
+    private fun initProcesses() {
         foodDetailViewModel.getFoodDetail(foodId)
     }
 
-    private fun initUI(){
+    private fun initUI() {
         binding.lottieLoading.initLottie()
         binding.toolbarAccount.apply {
             title = context.getString(R.string.title_add_food)
@@ -78,7 +81,11 @@ class FoodDetailFragment : Fragment() {
                 if (isOwnedFood) {
                     showBarcodeDialog(mFood?.foodGenerateCode.toString())
                 } else {
-                    showToast("Food Ranger gasno")
+                    mFood?.let {
+                        val message = it.generateMessageToFoodRanger()
+                        val phone = it.user?.phoneNumber
+                        openWhatsApp(phone?.toWhatsAppNumberFormat().toString(), message)
+                    }
                 }
             }
         }
@@ -95,7 +102,7 @@ class FoodDetailFragment : Fragment() {
                     val food = response.data
                     mFood = food
                     binding.apply {
-                        imvFood.setImageUrl(food.images)
+                        imvFood.setImageUrl(BASE_URL + food.images)
                         imvFoodOwner.setImageUrl(food.user?.profileUsers.toString())
 
                         tvFoodName.text = food.name
@@ -138,6 +145,12 @@ class FoodDetailFragment : Fragment() {
         }
     }
 
+    private fun openWhatsApp(phone: String, message: String) {
+        val url = "https://api.whatsapp.com/send?phone=$phone&text=$message"
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        startActivity(i)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

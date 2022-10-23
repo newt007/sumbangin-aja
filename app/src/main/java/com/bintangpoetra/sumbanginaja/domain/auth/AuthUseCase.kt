@@ -2,6 +2,7 @@ package com.bintangpoetra.sumbanginaja.domain.auth
 
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.domain.auth.model.User
+import com.google.android.gms.common.api.Api
 import kotlinx.coroutines.flow.Flow
 
 interface AuthUseCase {
@@ -18,5 +19,7 @@ interface AuthUseCase {
     fun getProfileDetail(): Flow<ApiResponse<User>>
 
     fun updateProfile(name: String, address: String, phoneNumber: String): Flow<ApiResponse<User>>
+
+    fun logout(): Flow<ApiResponse<String>>
 
 }

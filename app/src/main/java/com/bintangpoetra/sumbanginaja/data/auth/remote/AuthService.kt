@@ -21,7 +21,7 @@ interface AuthService {
         @Field("email") email: String,
         @Field("password") password: String,
         @Field("type") type: String
-    ): AlternateBaseResponse
+    ): BaseResponse<Nothing>
 
     @GET("get-profile")
     suspend fun getProfileDetail(): BaseResponse<UserItem>
@@ -34,5 +34,7 @@ interface AuthService {
         @Field("no_handphone") phoneNumber: String
     ): BaseResponse<UserItem>
 
+    @POST("logout")
+    suspend fun logout(): BaseResponse<Nothing>
 
 }

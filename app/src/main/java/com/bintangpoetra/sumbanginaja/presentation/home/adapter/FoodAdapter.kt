@@ -26,6 +26,10 @@ class FoodAdapter(private val onClick: (id: Int) -> Unit) :
         notifyDataSetChanged()
     }
 
+    fun clear() {
+        this.listFood.clear()
+    }
+
     fun setMyLocation(location: Location){
         this.myLocation = location
         notifyDataSetChanged()
@@ -52,7 +56,7 @@ class FoodAdapter(private val onClick: (id: Int) -> Unit) :
     inner class FoodViewHolder(val binding: FoodItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val foodLocation = Location("locationA")
-        private var distance = 0;
+        private var distance = 0
         fun bind(food: Food) {
             foodLocation.latitude = food.latitude.orZero()
             foodLocation.longitude = food.longitude.orZero()

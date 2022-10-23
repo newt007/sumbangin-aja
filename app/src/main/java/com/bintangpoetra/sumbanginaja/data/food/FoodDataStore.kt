@@ -10,13 +10,15 @@ import com.bintangpoetra.sumbanginaja.domain.region.mapper.toListDomain
 import com.bintangpoetra.sumbanginaja.domain.food.model.Food
 import com.bintangpoetra.sumbanginaja.utils.ext.toMultipart
 import com.bintangpoetra.sumbanginaja.utils.ext.toRequestBody
+import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.File
 
 class FoodDataStore(
-    private val api: FoodService
-): FoodRepository {
+    private val api: FoodService,
+    private val pref: PreferenceManager
+) : FoodRepository {
 
     override fun fetchFood(): Flow<ApiResponse<List<Food>>> = flow {
         try {
@@ -31,7 +33,7 @@ class FoodDataStore(
 //            }
             val foodData = response.data.toListDomain()
             emit(ApiResponse.Success(foodData))
-        } catch (ex: Exception){
+        } catch (ex: Exception) {
             emit(ApiResponse.Error(ex.message ?: "Unknown Error"))
             ex.printStackTrace()
         }
@@ -50,8 +52,46 @@ class FoodDataStore(
 //            }
             val foodData = response.data.toDomain()
             emit(ApiResponse.Success(foodData))
-        } catch (ex: Exception){
+        } catch (ex: Exception) {
             emit(ApiResponse.Error(ex.message ?: "Unknown Error"))
+            ex.printStackTrace()
+        }
+    }
+
+    override fun fetchFoodByUserId(): Flow<ApiResponse<List<Food>>> = flow {
+        try {
+            emit(ApiResponse.Loading)
+            val response = api.fetchFoodByUserId(pref.getUserId.toString())
+
+            val foodData = response.data.toListDomain()
+            if (foodData.isEmpty()) {
+                emit(ApiResponse.Empty)
+            } else {
+                emit(ApiResponse.Success(foodData))
+            }
+        } catch (ex: Exception) {
+            emit(ApiResponse.Error(ex.message ?: "Unknown Error"))
+            ex.printStackTrace()
+        }
+    }
+
+    override fun scanningFood(
+        barcode: String,
+        type: String,
+        qty: String
+    ): Flow<ApiResponse<String>> = flow {
+        try {
+            emit(ApiResponse.Loading)
+            val response = api.scanningFood(barcode, type, qty)
+            val message = response.message
+
+            if (response.status) {
+                emit(ApiResponse.Success(message))
+            } else {
+                emit(ApiResponse.Error(message))
+            }
+        } catch (ex: Exception) {
+            emit(ApiResponse.Error(ex.message.toString()))
             ex.printStackTrace()
         }
     }

@@ -1,6 +1,7 @@
 package com.bintangpoetra.sumbanginaja.data.food.remote
 
 import com.bintangpoetra.sumbanginaja.data.food.model.FoodItem
+import com.bintangpoetra.sumbanginaja.data.lib.AlternateBaseResponse
 import com.bintangpoetra.sumbanginaja.data.lib.BaseResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -31,5 +32,18 @@ interface FoodService {
         @Part("longitude") longitude: RequestBody?,
         ): BaseResponse<Nothing>
 
+
+    @GET("food/{id}")
+    suspend fun fetchFoodByUserId(
+        @Path("id") id: String
+    ): BaseResponse<List<FoodItem>>
+
+    @POST("scan")
+    @FormUrlEncoded
+    suspend fun scanningFood(
+        @Field("barcode") barcode: String,
+        @Field("type") type: String,
+        @Field("qty") qty: String
+    ): AlternateBaseResponse
 
 }

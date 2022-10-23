@@ -9,20 +9,22 @@ import com.bintangpoetra.sumbanginaja.presentation.food.FoodDetailViewModel
 import com.bintangpoetra.sumbanginaja.presentation.food.list.FoodListViewModel
 import com.bintangpoetra.sumbanginaja.presentation.food.add.AddFoodViewModel
 import com.bintangpoetra.sumbanginaja.presentation.home.HomeViewModel
+import com.bintangpoetra.sumbanginaja.presentation.scanner.ScannerViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val foodModule = module {
 
     factory<FoodUseCase> { FoodInteractor(get()) }
-    factory<FoodRepository> { FoodDataStore(get()) }
+    factory<FoodRepository> { FoodDataStore(get(), get()) }
 
-    single { FoodDataStore(get()) }
+    single { FoodDataStore(get(), get()) }
     single { FoodInteractor(get()) }
 
     viewModel { HomeViewModel(get()) }
     viewModel { FoodDetailViewModel(get()) }
     viewModel { AddFoodViewModel(get()) }
     viewModel { FoodListViewModel(get()) }
+    viewModel { ScannerViewModel(get()) }
 
 }

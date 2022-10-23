@@ -91,4 +91,20 @@ class AuthDataStore(
         }
     }
 
+    override fun logout(): Flow<ApiResponse<String>> = flow {
+        try {
+            emit(ApiResponse.Loading)
+
+            val response = api.logout()
+            if (response.status) {
+                emit(ApiResponse.Success(response.message))
+            } else {
+                emit(ApiResponse.Error(response.message))
+            }
+        } catch (ex: Exception) {
+            emit(ApiResponse.Error(ex.message.toString()))
+            ex.printStackTrace()
+        }
+    }
+
 }

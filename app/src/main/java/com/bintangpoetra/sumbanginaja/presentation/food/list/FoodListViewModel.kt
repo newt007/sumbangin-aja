@@ -16,9 +16,9 @@ class FoodListViewModel(
     val foodResult: LiveData<ApiResponse<List<Food>>> by lazy { _foodResult }
     private val _foodResult = MutableLiveData<ApiResponse<List<Food>>>()
 
-    fun getFoods() {
+    fun getMyFoodsList() {
         viewModelScope.launch {
-            foodUseCase.fetchFood().collect {
+            foodUseCase.fetchFoodByUserId().collect {
                 _foodResult.postValue(it)
             }
         }

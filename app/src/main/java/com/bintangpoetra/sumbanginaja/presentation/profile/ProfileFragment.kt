@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bintangpoetra.sumbanginaja.R
+import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentProfileBinding
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
-import com.bintangpoetra.sumbanginaja.utils.ext.click
-import com.bintangpoetra.sumbanginaja.utils.ext.getPrefManager
-import com.bintangpoetra.sumbanginaja.utils.ext.showBarcodeDialog
-import com.bintangpoetra.sumbanginaja.utils.ext.showConfirmDialog
+import com.bintangpoetra.sumbanginaja.utils.ext.*
+import org.koin.android.ext.android.inject
 
 class ProfileFragment : Fragment() {
 
@@ -20,6 +19,8 @@ class ProfileFragment : Fragment() {
     private val binding get() = _fragmentProfileBinding!!
 
     private val pref: PreferenceManager by lazy { getPrefManager() }
+
+    private val viewModel: ProfileViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,12 +36,14 @@ class ProfileFragment : Fragment() {
 
         initUI()
         initAction()
+        initObservers()
     }
 
     private fun initUI() {
         binding.apply {
             tvName.text = pref.getName
             tvEmail.text = pref.getEmail
+            lottieLogin.initLottie()
         }
     }
 
@@ -52,24 +55,45 @@ class ProfileFragment : Fragment() {
             btnLogout.click {
                 showConfirmDialog(
                     onPositiveClick = {
-                        logout()
+                        viewModel.logout()
                     }
                 )
             }
-            binding.btnQrCode.click {
+            btnQrCode.click {
                 showBarcodeDialog(pref.getUserId.toString())
             }
             btnFoodList.click {
                 findNavController().navigate(R.id.action_profileFragment_to_foodListFragment)
             }
+            btnQrScanner.click {
+                findNavController().navigate(R.id.action_profileFragment_to_scannerFragment)
+            }
         }
     }
 
-    private fun logout() {
-        pref.apply {
-            clearAllPreferences()
+    private fun initObservers() {
+        viewModel.logoutResult.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ApiResponse.Loading -> {
+                    binding.let {
+                        showLoading(it.viewBgWhite, it.viewBgDimmer)
+                    }
+                }
+                is ApiResponse.Success -> {
+                    findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+                }
+                is ApiResponse.Error -> {
+                    binding.let {
+                        hideLoading(it.viewBgWhite, it.viewBgDimmer)
+                    }
+                }
+                else -> {
+                    binding.let {
+                        hideLoading(it.viewBgWhite, it.viewBgDimmer)
+                    }
+                }
+            }
         }
-        findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
     }
 
 }
