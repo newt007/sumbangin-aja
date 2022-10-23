@@ -5,12 +5,15 @@ import com.bintangpoetra.sumbanginaja.data.lib.AlternateBaseResponse
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.domain.auth.mapper.toDomain
 import com.bintangpoetra.sumbanginaja.domain.auth.model.User
+import com.bintangpoetra.sumbanginaja.utils.ConstVal
+import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 
 class AuthDataStore(
-    private val api: AuthService
+    private val api: AuthService,
+    private val pref: PreferenceManager
 ): AuthRepository {
 
     override fun loginUser(email: String, password: String): Flow<ApiResponse<User>> = flow {
@@ -20,6 +23,9 @@ class AuthDataStore(
 
             if (response.status) {
                 val userData = response.data.toDomain()
+                pref.apply {
+                    storeLoginData(userData)
+                }
                 emit(ApiResponse.Success(userData))
             } else {
                 emit(ApiResponse.Error(response.message))

@@ -2,6 +2,8 @@ package com.bintangpoetra.sumbanginaja.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.bintangpoetra.sumbanginaja.domain.auth.model.User
+import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_ADDRESS
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_EMAIL
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_IS_LOGIN
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_NAME
@@ -31,8 +33,20 @@ class PreferenceManager(context: Context) {
         editor.apply()
     }
 
+    fun storeLoginData(user: User) {
+        setStringPreference(KEY_USER_ID, user.id.toString())
+        setStringPreference(KEY_NAME, user.name)
+        setStringPreference(KEY_USER_NAME, user.profileUsers)
+        setStringPreference(KEY_EMAIL, user.email)
+        setStringPreference(KEY_ADDRESS, user.address)
+        setStringPreference(KEY_TOKEN, user.token)
+        setBooleanPreference(KEY_IS_LOGIN, true)
+    }
+
     fun clearAllPreferences() {
         editor.remove(KEY_USER_ID)
+        editor.remove(KEY_USER_NAME)
+        editor.remove(KEY_ADDRESS)
         editor.remove(KEY_IS_LOGIN)
         editor.remove(KEY_NAME)
         editor.remove(KEY_EMAIL)

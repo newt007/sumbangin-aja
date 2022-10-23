@@ -83,15 +83,6 @@ class LoginFragment : Fragment() {
                     }
                 }
                 is ApiResponse.Success -> {
-                    pref.apply {
-                        setStringPreference(KEY_USER_ID, response.data.id.toString())
-                        setStringPreference(KEY_NAME, response.data.name)
-                        setStringPreference(KEY_USER_NAME, response.data.profileUsers)
-                        setStringPreference(KEY_EMAIL, response.data.email)
-                        setStringPreference(KEY_ADDRESS, response.data.address)
-                        setStringPreference(KEY_TOKEN, response.data.token)
-                        setBooleanPreference(KEY_IS_LOGIN, true)
-                    }
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
                 is ApiResponse.Error -> {

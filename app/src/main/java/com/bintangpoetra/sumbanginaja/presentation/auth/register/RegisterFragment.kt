@@ -58,6 +58,9 @@ class RegisterFragment: Fragment() {
                     password.isEmpty() -> {
                         binding.edtPassword.showError(getString(R.string.error_must_not_empty))
                     }
+                    password.length < 8 -> {
+                        binding.edtPassword.showError(getString(R.string.message_password_must_8_character))
+                    }
                     else -> {
                         registerViewModel.registerUser(fullName, email, password, "default")
                     }
