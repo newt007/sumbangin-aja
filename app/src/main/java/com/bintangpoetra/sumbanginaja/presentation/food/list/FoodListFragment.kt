@@ -11,6 +11,7 @@ import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentFoodListBinding
 import com.bintangpoetra.sumbanginaja.presentation.home.adapter.FoodAdapter
+import com.bintangpoetra.sumbanginaja.utils.ext.click
 import com.bintangpoetra.sumbanginaja.utils.ext.hideShimmerLoading
 import com.bintangpoetra.sumbanginaja.utils.ext.showShimmerLoading
 import org.koin.android.ext.android.inject
@@ -46,6 +47,9 @@ class FoodListFragment: Fragment() {
         binding.apply {
             toolbarFood.setNavigationOnClickListener {
                 findNavController().popBackStack()
+            }
+            btnAddFood.click {
+                findNavController().navigate(FoodListFragmentDirections.actionFoodListFragmentToAddFoodFragment())
             }
         }
     }

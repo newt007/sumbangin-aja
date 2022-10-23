@@ -12,6 +12,7 @@ import com.bintangpoetra.sumbanginaja.BuildConfig
 import com.bintangpoetra.sumbanginaja.R
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.material.snackbar.Snackbar
 
 fun View.show() {
     visibility = View.VISIBLE
@@ -122,4 +123,16 @@ fun View.popTap(){
 
 fun LottieAnimationView.initLottie() {
     setAnimation(R.raw.loading_lottie)
+}
+
+fun View.showSnackBar(message: String) {
+    Snackbar.make(
+        this,
+        message,
+        Snackbar.LENGTH_LONG
+    ).also { snackbar ->
+        snackbar.setAction("Ok") {
+            snackbar.dismiss()
+        }
+    }.show()
 }

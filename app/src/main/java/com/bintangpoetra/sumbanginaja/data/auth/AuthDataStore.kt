@@ -20,8 +20,7 @@ class AuthDataStore(
         try {
             emit(ApiResponse.Loading)
             val response = api.loginUser(email, password)
-
-            if (response.status) {
+            if (response.status || response.success) {
                 val userData = response.data.toDomain()
                 pref.apply {
                     storeLoginData(userData)

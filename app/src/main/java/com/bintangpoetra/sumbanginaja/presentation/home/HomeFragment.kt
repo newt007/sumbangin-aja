@@ -39,7 +39,6 @@ class HomeFragment : Fragment() {
     private var myLocation: Location? = null
     var mFusedLocationClient: FusedLocationProviderClient? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val callback: OnBackPressedCallback =

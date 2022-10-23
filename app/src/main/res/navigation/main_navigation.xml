@@ -81,12 +81,40 @@
             android:defaultValue="0" />
     </fragment>
     <fragment
+        android:id="@+id/addFoodFragment"
+        android:name="com.bintangpoetra.sumbanginaja.presentation.food.add.AddFoodFragment"
+        android:label="AddFoodFragment" >
+        <action
+            android:id="@+id/action_addFoodFragment_to_provinceFragment"
+            app:destination="@id/provinceFragment" />
+        <action
+            android:id="@+id/action_addFoodFragment_to_cityFragment"
+            app:destination="@id/cityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/provinceFragment"
+        android:name="com.bintangpoetra.sumbanginaja.presentation.region.province.ProvinceFragment"
+        android:label="fragment_province"
+        tools:layout="@layout/fragment_province" />
+    <fragment
+        android:id="@+id/cityFragment"
+        android:name="com.bintangpoetra.sumbanginaja.presentation.region.city.CityFragment"
+        android:label="CityFragment" >
+        <argument
+            android:name="idProvince"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
         android:id="@+id/foodListFragment"
         android:name="com.bintangpoetra.sumbanginaja.presentation.food.list.FoodListFragment"
         android:label="FoodListFragment" >
         <action
             android:id="@+id/action_foodListFragment_to_foodDetailFragment"
             app:destination="@id/foodDetailFragment" />
+        <action
+            android:id="@+id/action_foodListFragment_to_addFoodFragment"
+            app:destination="@id/addFoodFragment" />
     </fragment>
 
 </navigation>

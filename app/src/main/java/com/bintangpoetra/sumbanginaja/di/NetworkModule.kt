@@ -4,6 +4,7 @@ import com.bintangpoetra.sumbanginaja.BuildConfig
 import com.bintangpoetra.sumbanginaja.data.auth.remote.AuthService
 import com.bintangpoetra.sumbanginaja.data.food.remote.FoodService
 import com.bintangpoetra.sumbanginaja.data.lib.HeaderInterceptor
+import com.bintangpoetra.sumbanginaja.data.region.remote.RegionService
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -37,6 +38,8 @@ val networkModule = module {
 
     single { provideAuthService(get()) }
 
+    single { provideRegionService(get()) }
+
 }
 
 private fun getHeaderInterceptor(preferenceManager: PreferenceManager): Interceptor {
@@ -50,3 +53,5 @@ private fun getHeaderInterceptor(preferenceManager: PreferenceManager): Intercep
 fun provideAuthService(retrofit: Retrofit): AuthService = retrofit.create(AuthService::class.java)
 
 fun provideFoodService(retrofit: Retrofit): FoodService = retrofit.create(FoodService::class.java)
+
+fun provideRegionService(retrofit: Retrofit): RegionService = retrofit.create(RegionService::class.java)
