@@ -23,4 +23,12 @@ interface FoodRepository {
         location: Location?
     ): Flow<ApiResponse<String>>
 
+    fun fetchFoodByUserId() : Flow<ApiResponse<List<Food>>>
+
+    fun scanningFood(
+        barcode: String,
+        type: String,
+        qty: String
+    ): Flow<ApiResponse<String>>
+
 }

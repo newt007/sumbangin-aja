@@ -79,5 +79,10 @@
         <item>Dari kamera</item>
         <item>Dari galeri</item>
     </string-array>
+    <string name="label_food_empty_state">Daftar Makananmu kosong nih, yuk sumbangkan makanan kamu</string>
+    <string name="label_transaction_is_completed">Transaksi Makanan Sudah Selesai</string>
+    <string name="label_thank_you_food_ranger">Terimakasih telah berkontribusi menjadi Food Ranger, dan telah menyelamatkan bumi dari sampah makanan</string>
+    <string name="action_back_to_home">Kembali ke Beranda</string>
+    <string name="action_close">Tutup</string>
 
 </resources>

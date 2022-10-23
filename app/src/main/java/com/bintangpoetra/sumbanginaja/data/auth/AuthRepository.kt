@@ -24,4 +24,6 @@ interface AuthRepository {
         phoneNumber: String
     ): Flow<ApiResponse<User>>
 
+    fun logout(): Flow<ApiResponse<String>>
+
 }

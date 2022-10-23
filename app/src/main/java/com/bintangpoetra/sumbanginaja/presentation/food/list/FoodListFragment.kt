@@ -11,8 +11,10 @@ import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentFoodListBinding
 import com.bintangpoetra.sumbanginaja.presentation.home.adapter.FoodAdapter
+import com.bintangpoetra.sumbanginaja.utils.ext.gone
 import com.bintangpoetra.sumbanginaja.utils.ext.click
 import com.bintangpoetra.sumbanginaja.utils.ext.hideShimmerLoading
+import com.bintangpoetra.sumbanginaja.utils.ext.show
 import com.bintangpoetra.sumbanginaja.utils.ext.showShimmerLoading
 import org.koin.android.ext.android.inject
 
@@ -51,6 +53,9 @@ class FoodListFragment: Fragment() {
             btnAddFood.click {
                 findNavController().navigate(FoodListFragmentDirections.actionFoodListFragmentToAddFoodFragment())
             }
+            btnToAddFood.click {
+                findNavController().navigate(FoodListFragmentDirections.actionFoodListFragmentToAddFoodFragment())
+            }
         }
     }
 
@@ -65,7 +70,7 @@ class FoodListFragment: Fragment() {
     }
 
     private fun initProcess() {
-        viewModel.getFoods()
+        viewModel.getMyFoodsList()
     }
 
     private fun initObservers() {
@@ -73,22 +78,35 @@ class FoodListFragment: Fragment() {
             when(response) {
                 is ApiResponse.Loading -> {
                     binding.let {
+                        it.llEmptyState.gone()
                         showShimmerLoading(it.foodListShimmeringLoading, it.llShimmeringContainer)
                     }
                 }
                 is ApiResponse.Success -> {
+                    adapter.clear()
                     adapter.setData(response.data)
                     binding.let {
+                        it.llEmptyState.gone()
+                        it.rvHome.show()
                         hideShimmerLoading(it.foodListShimmeringLoading, it.llShimmeringContainer)
                     }
                 }
                 is ApiResponse.Error -> {
                     binding.let {
+                        it.llEmptyState.gone()
+                        hideShimmerLoading(it.foodListShimmeringLoading, it.llShimmeringContainer)
+                    }
+                }
+                is ApiResponse.Empty -> {
+                    binding.let {
+                        it.btnAddFood.gone()
+                        it.llEmptyState.show()
                         hideShimmerLoading(it.foodListShimmeringLoading, it.llShimmeringContainer)
                     }
                 }
                 else -> {
                     binding.let {
+                        it.llEmptyState.gone()
                         hideShimmerLoading(it.foodListShimmeringLoading, it.llShimmeringContainer)
                     }
                 }

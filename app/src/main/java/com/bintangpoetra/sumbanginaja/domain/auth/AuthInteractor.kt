@@ -36,4 +36,8 @@ class AuthInteractor(
             .flowOn(Dispatchers.IO)
     }
 
+    override fun logout(): Flow<ApiResponse<String>> {
+        return repository.logout().flowOn(Dispatchers.IO)
+    }
+
 }

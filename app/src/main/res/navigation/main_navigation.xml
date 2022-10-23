@@ -28,6 +28,12 @@
         <action
             android:id="@+id/action_homeFragment_to_foodDetailFragment"
             app:destination="@id/foodDetailFragment" />
+        <action
+            android:id="@+id/action_foodListFragment_to_barcodeDialogFragment"
+            app:destination="@id/barcodeDialogFragment" />
+        <action
+            android:id="@+id/action_foodListFragment_self"
+            app:destination="@id/foodListFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -66,6 +72,9 @@
         <action
             android:id="@+id/action_profileFragment_to_foodListFragment"
             app:destination="@id/foodListFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_scannerFragment"
+            app:destination="@id/scannerFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -115,6 +124,21 @@
         <action
             android:id="@+id/action_foodListFragment_to_addFoodFragment"
             app:destination="@id/addFoodFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/barcodeDialogFragment"
+        android:name="com.bintangpoetra.sumbanginaja.presentation.dialog.BarcodeDialogFragment"
+        android:label="BarcodeDialogFragment" />
+    <fragment
+        android:id="@+id/scannerFragment"
+        android:name="com.bintangpoetra.sumbanginaja.presentation.scanner.ScannerFragment"
+        android:label="ScannerFragment" >
+        <action
+            android:id="@+id/action_scannerFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/main_navigation"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 </navigation>

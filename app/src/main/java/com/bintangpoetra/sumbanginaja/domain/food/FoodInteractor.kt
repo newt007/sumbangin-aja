@@ -36,4 +36,16 @@ class FoodInteractor(
         )
     }
 
+    override fun scanningFood(
+        barcode: String,
+        type: String,
+        qty: String
+    ): Flow<ApiResponse<String>> {
+        return repository.scanningFood(barcode, type, qty).flowOn(Dispatchers.IO)
+    }
+
+    override fun fetchFoodByUserId(): Flow<ApiResponse<List<Food>>> {
+        return repository.fetchFoodByUserId().flowOn(Dispatchers.IO)
+    }
+
 }
