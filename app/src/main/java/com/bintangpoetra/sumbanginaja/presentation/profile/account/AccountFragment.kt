@@ -44,7 +44,7 @@ class AccountFragment : Fragment() {
     private fun initUI() {
         binding.apply {
             lottieAccount.initLottie()
-
+            tilEmail.disable()
             toolbarAccount.apply {
                 title = context.getString(R.string.title_account)
                 setNavigationOnClickListener {
