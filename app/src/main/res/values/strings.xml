@@ -48,5 +48,7 @@
     <string name="label_location">Lokasi</string>
     <string name="label_open_map">Buka Peta</string>
     <string name="label_call_food_ranger">Hubungi Food Ranger</string>
+    <string name="label_give_food">Serahkan Makanan</string>
+    <string name="label_scan_barcode_below">Scan Barcode Dibawah Ini</string>
 
 </resources>

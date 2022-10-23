@@ -10,6 +10,9 @@ data class FoodItem (
     val name: String?,
     val images: String?,
     val descriptions: String?,
+    val status: String?,
+    @SerializedName("food_generate_code")
+    val foodGenerateCode: String?,
     @SerializedName("payback_time")
     val paybackTime: String?,
     val latitude: Double?,

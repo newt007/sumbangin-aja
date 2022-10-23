@@ -9,6 +9,7 @@ import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.databinding.FoodItemBinding
 import com.bintangpoetra.sumbanginaja.domain.food.model.Food
 import com.bintangpoetra.sumbanginaja.utils.ext.orZero
+import com.bintangpoetra.sumbanginaja.utils.ext.setImageUrl
 import com.bintangpoetra.sumbanginaja.utils.ext.toDistance
 import com.bumptech.glide.Glide
 import timber.log.Timber
@@ -45,7 +46,7 @@ class FoodAdapter(private val onClick: (id: Int) -> Unit) :
         }
     }
 
-    override fun getItemCount(): Int = if (listFood.size > 5) 5 else listFood.size
+    override fun getItemCount(): Int = listFood.size
 
     @SuppressLint("SetTextI18n")
     inner class FoodViewHolder(val binding: FoodItemBinding) :
@@ -62,22 +63,14 @@ class FoodAdapter(private val onClick: (id: Int) -> Unit) :
                 distance = foodLocation.distanceTo(myLocation).toInt()
             }
 
-
             binding.apply {
                 tvFoodName.text = food.name
                 tvFoodOwnerAddress.text = food.descriptions
                 tvFoodOwner.text = food.user?.name
                 tvDistance.text = distance.toDistance()
 
-                Glide.with(root.context)
-                    .load(food.images)
-                    .placeholder(R.color.colorSoftGrey)
-                    .into(imgFoodOwner)
-
-                Glide.with(root.context)
-                    .load(food.images)
-                    .placeholder(R.color.colorSoftGrey)
-                    .into(imgFood)
+                imgFoodOwner.setImageUrl(food.user?.profileUsers.toString())
+                imgFood.setImageUrl(food.images)
             }
         }
     }
