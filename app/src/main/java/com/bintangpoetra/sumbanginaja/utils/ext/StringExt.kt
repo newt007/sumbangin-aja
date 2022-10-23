@@ -11,3 +11,7 @@ fun String.isEmailValid(): Boolean  {
 fun String.toBearer(): String {
     return "Bearer $this"
 }
+
+fun String.isTheFoodOwner(id: String): Boolean {
+    return this == id
+}

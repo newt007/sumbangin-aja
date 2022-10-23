@@ -6,8 +6,11 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import com.airbnb.lottie.LottieAnimationView
+import com.bintangpoetra.sumbanginaja.BuildConfig
 import com.bintangpoetra.sumbanginaja.R
+import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout
 
 fun View.show() {
@@ -28,6 +31,13 @@ fun View.disable() {
 
 fun View.enabled() {
     isEnabled = true
+}
+
+fun ImageView.setImageUrl(url: String) {
+    Glide.with(this.context)
+        .load(url)
+        .placeholder(R.color.colorSoftGrey)
+        .into(this)
 }
 
 infix fun View.click(click: () -> Unit) {

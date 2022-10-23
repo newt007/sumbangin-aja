@@ -13,6 +13,8 @@ fun FoodItem.toDomain(): Food {
         name = this.name ?: emptyString(),
         images = this.images ?: emptyString(),
         descriptions = this.descriptions ?: emptyString(),
+        status = this.status ?: emptyString(),
+        foodGenerateCode = this.foodGenerateCode ?: emptyString(),
         paybackTime = this.paybackTime ?: emptyString(),
         userID = this.userID.orZero(),
         latitude = this.latitude.orDefaultLatitude(),

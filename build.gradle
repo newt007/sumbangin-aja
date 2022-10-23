@@ -3,6 +3,7 @@ buildscript {
     ext.nav_version = "2.5.2"
     ext.koin_version = "3.2.0"
     repositories {
+        jcenter()
         mavenCentral()
     }
     dependencies {
