@@ -4,4 +4,9 @@
         <attr name="menuIcon" format="reference" />
         <attr name="menuTitle" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="CustomTextBoxButton">
+        <attr name="buttonTitle" format="string" />
+    </declare-styleable>
+
 </resources>

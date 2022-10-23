@@ -45,7 +45,7 @@ class FoodAdapter(private val onClick: (id: Int) -> Unit) :
         }
     }
 
-    override fun getItemCount(): Int = if (listFood.size > 5) 5 else listFood.size
+    override fun getItemCount(): Int = listFood.size
 
     @SuppressLint("SetTextI18n")
     inner class FoodViewHolder(val binding: FoodItemBinding) :

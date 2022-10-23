@@ -3,6 +3,8 @@ package com.bintangpoetra.sumbanginaja.data.lib
 import com.google.gson.annotations.SerializedName
 
 data class BaseResponse<T>(
+    @SerializedName("success")
+    val success: Boolean,
     @SerializedName("status")
     val status: Boolean,
     @SerializedName("message")

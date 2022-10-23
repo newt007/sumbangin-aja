@@ -1,10 +1,16 @@
 package com.bintangpoetra.sumbanginaja.utils.ext
 
 import android.app.Activity
+import android.content.Context
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.bintangpoetra.sumbanginaja.R
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlin.system.exitProcess
 
 fun Fragment.showToast(message: String) {
@@ -23,3 +29,4 @@ fun Fragment.showConfirmDialog(onPositiveClick: Unit){
         }
     }.create().show()
 }
+

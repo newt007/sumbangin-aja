@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentFoodDetailBinding
@@ -23,6 +24,7 @@ class FoodDetailFragment : Fragment() {
     private val foodDetailViewModel: FoodDetailViewModel by inject()
 
     private lateinit var mMap: GoogleMap
+    private var foodId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,16 +38,29 @@ class FoodDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val safeArgs = arguments?.let { FoodDetailFragmentArgs.fromBundle(it) }
-        val id = safeArgs?.id ?: 0
-
-        foodDetailViewModel.getFoodDetail(id)
+        initIntentData()
+        initProcesses()
         initUI()
         initObservers()
     }
 
+    private fun initIntentData(){
+        val safeArgs = arguments?.let { FoodDetailFragmentArgs.fromBundle(it) }
+        foodId = safeArgs?.id ?: 0
+    }
+
+    private fun initProcesses(){
+        foodDetailViewModel.getFoodDetail(foodId)
+    }
+
     private fun initUI(){
         binding.lottieLoading.initLottie()
+        binding.toolbarAccount.apply {
+            title = context.getString(R.string.title_add_food)
+            setNavigationOnClickListener {
+                it.findNavController().popBackStack()
+            }
+        }
     }
 
     private fun initObservers() {
@@ -91,7 +106,6 @@ class FoodDetailFragment : Fragment() {
                 }
                 is ApiResponse.Error -> {
                     hideLoading(binding.loadingContainer)
-
                 }
                 else -> {
                     hideLoading(binding.loadingContainer)
@@ -99,7 +113,6 @@ class FoodDetailFragment : Fragment() {
             }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

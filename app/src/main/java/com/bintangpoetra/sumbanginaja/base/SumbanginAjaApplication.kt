@@ -3,6 +3,7 @@ package com.bintangpoetra.sumbanginaja.base
 import android.app.Application
 import com.bintangpoetra.sumbanginaja.di.feature.authModule
 import com.bintangpoetra.sumbanginaja.di.feature.foodModule
+import com.bintangpoetra.sumbanginaja.di.feature.regionModule
 import com.bintangpoetra.sumbanginaja.di.networkModule
 import com.bintangpoetra.sumbanginaja.di.preferenceModule
 import org.koin.android.ext.koin.androidContext
@@ -26,7 +27,8 @@ class SumbanginAjaApplication: Application() {
                     networkModule,
                     preferenceModule,
                     authModule,
-                    foodModule
+                    foodModule,
+                    regionModule
                 )
             )
         }

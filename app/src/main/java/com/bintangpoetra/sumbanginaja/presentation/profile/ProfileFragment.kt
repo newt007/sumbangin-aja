@@ -53,6 +53,9 @@ class ProfileFragment : Fragment() {
                     onPositiveClick = logout()
                 )
             }
+            btnAddFood.click {
+                findNavController().navigate(R.id.action_profileFragment_to_addFoodFragment)
+            }
         }
     }
 

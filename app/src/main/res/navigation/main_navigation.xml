@@ -63,6 +63,9 @@
             app:popUpTo="@id/main_navigation"
             app:launchSingleTop="true"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_profileFragment_to_addFoodFragment"
+            app:destination="@id/addFoodFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -74,6 +77,31 @@
         android:label="FoodDetailFragment" >
         <argument
             android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFoodFragment"
+        android:name="com.bintangpoetra.sumbanginaja.presentation.food.add.AddFoodFragment"
+        android:label="AddFoodFragment" >
+        <action
+            android:id="@+id/action_addFoodFragment_to_provinceFragment"
+            app:destination="@id/provinceFragment" />
+        <action
+            android:id="@+id/action_addFoodFragment_to_cityFragment"
+            app:destination="@id/cityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/provinceFragment"
+        android:name="com.bintangpoetra.sumbanginaja.presentation.region.province.ProvinceFragment"
+        android:label="fragment_province"
+        tools:layout="@layout/fragment_province" />
+    <fragment
+        android:id="@+id/cityFragment"
+        android:name="com.bintangpoetra.sumbanginaja.presentation.region.city.CityFragment"
+        android:label="CityFragment" >
+        <argument
+            android:name="idProvince"
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
