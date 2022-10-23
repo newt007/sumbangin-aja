@@ -50,7 +50,9 @@ class ProfileFragment : Fragment() {
             }
             btnLogout.click {
                 showConfirmDialog(
-                    onPositiveClick = logout()
+                    onPositiveClick = {
+                        logout()
+                    }
                 )
             }
             btnFoodList.click {
