@@ -25,7 +25,7 @@ fun Int?.toDistance(): String {
         return "${this?.div(1000) ?: 0} km"
     }
 
-    return "$this km"
+    return "$this m"
 }
 
 fun Int.toRequestBody(): RequestBody {
