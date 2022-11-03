@@ -2,44 +2,32 @@ package com.bintangpoetra.sumbanginaja.presentation.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bintangpoetra.sumbanginaja.R
+import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentProfileBinding
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.*
 import org.koin.android.ext.android.inject
 
-class ProfileFragment : Fragment() {
-
-    private var _fragmentProfileBinding: FragmentProfileBinding? = null
-    private val binding get() = _fragmentProfileBinding!!
-
-    private val pref: PreferenceManager by lazy { getPrefManager() }
+class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     private val viewModel: ProfileViewModel by inject()
 
-    override fun onCreateView(
+    private val pref: PreferenceManager by lazy { getPrefManager() }
+
+    override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _fragmentProfileBinding = FragmentProfileBinding.inflate(inflater, container, false)
-        return _fragmentProfileBinding?.root
+    ): FragmentProfileBinding = FragmentProfileBinding.inflate(inflater, container, false)
+
+    override fun initIntent() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initUI()
-        initAction()
-        initObservers()
-    }
-
-    private fun initUI() {
+    override fun initUI() {
         binding.apply {
             tvName.text = pref.getName
             tvEmail.text = pref.getEmail
@@ -47,7 +35,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun initAction() {
+    override fun initAction() {
         binding.apply {
             btnAccount.click {
                 findNavController().navigate(R.id.action_profileFragment_to_accountFragment)
@@ -71,7 +59,10 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun initObservers() {
+    override fun initProcess() {
+    }
+
+    override fun initObservers() {
         viewModel.logoutResult.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ApiResponse.Loading -> {

@@ -16,6 +16,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bintangpoetra.sumbanginaja.R
+import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentAddFoodBinding
 import com.bintangpoetra.sumbanginaja.domain.region.model.Region
@@ -35,10 +36,7 @@ import org.koin.android.ext.android.inject
 import timber.log.Timber
 import java.io.File
 
-class AddFoodFragment : Fragment() {
-
-    private var _binding: FragmentAddFoodBinding? = null
-    private val binding get() = _binding!!
+class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {
 
     private val viewModel: AddFoodViewModel by inject()
     var mFusedLocationClient: FusedLocationProviderClient? = null
@@ -50,31 +48,85 @@ class AddFoodFragment : Fragment() {
     private var cityName = ""
     private var myLocation: Location? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentAddFoodBinding.inflate(inflater, container, false)
-        return _binding?.root
+    ): FragmentAddFoodBinding = FragmentAddFoodBinding.inflate(inflater, container, false)
+
+    override fun initIntent() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
-        initUI()
-        initActions()
-        initObservers()
-        initResultData()
-    }
-
-    private fun initUI(){
+    override fun initUI(){
         binding.lottieLoading.initLottie()
         binding.toolbarAccount.apply {
             title = context.getString(R.string.title_add_food)
             setNavigationOnClickListener {
                 it.findNavController().popBackStack()
+            }
+        }
+    }
+
+    override fun initAction() {
+        binding.btnAddFood.click {
+            submitCreateFood()
+        }
+
+        binding.btnProvince.popClick {
+            findNavController().navigate(R.id.action_addFoodFragment_to_provinceFragment)
+        }
+
+        binding.btnCity.popClick {
+            if (provinceId == 0) {
+                binding.root.showSnackBar("Pilih provinsi terlebih dahulu..")
+                return@popClick
+            }
+            val action = AddFoodFragmentDirections.actionAddFoodFragmentToCityFragment(provinceId)
+            findNavController().navigate(action)
+        }
+
+        binding.imgFoodPlaceholder.popClick {
+            initTakePicture()
+        }
+
+        binding.imgFood.popClick {
+            initTakePicture()
+        }
+
+        binding.btnGetLocation.popClick {
+            getLocation()
+        }
+
+        initResultData()
+    }
+
+    override fun initProcess() {
+    }
+
+    override fun initObservers() {
+        viewModel.addFoodResult.observe(viewLifecycleOwner) { response ->
+            println("Response is $response")
+            when (response) {
+                is ApiResponse.Loading -> {
+                    binding.let {
+                        showLoading(it.viewBgWhite, it.backgroundDim)
+                    }
+                }
+                is ApiResponse.Success -> {
+                    showToast(response.data)
+                    requireView().findNavController().popBackStack()
+                }
+                is ApiResponse.Error -> {
+                    binding.let {
+                        hideLoading(it.viewBgWhite, it.backgroundDim)
+                    }
+                    showToast(response.errorMessage)
+                }
+                else -> {
+                    binding.let {
+                        hideLoading(it.viewBgWhite, it.backgroundDim)
+                    }
+                }
             }
         }
     }
@@ -107,38 +159,6 @@ class AddFoodFragment : Fragment() {
 
         if (cityName.isNotEmpty()) {
             binding.tvMenuTitleCity.text = cityName
-        }
-    }
-
-    private fun initActions(){
-
-        binding.btnAddFood.click {
-            submitCreateFood()
-        }
-
-        binding.btnProvince.popClick {
-            findNavController().navigate(R.id.action_addFoodFragment_to_provinceFragment)
-        }
-
-        binding.btnCity.popClick {
-            if (provinceId == 0) {
-                binding.root.showSnackBar("Pilih provinsi terlebih dahulu..")
-                return@popClick
-            }
-            val action = AddFoodFragmentDirections.actionAddFoodFragmentToCityFragment(provinceId)
-            findNavController().navigate(action)
-        }
-
-        binding.imgFoodPlaceholder.popClick {
-            initTakePicture()
-        }
-
-        binding.imgFood.popClick {
-            initTakePicture()
-        }
-
-        binding.btnGetLocation.popClick {
-            getLocation()
         }
     }
 
@@ -204,34 +224,6 @@ class AddFoodFragment : Fragment() {
                             address = address,
                             location = myLocation
                         )
-                    }
-                }
-            }
-        }
-    }
-
-    private fun initObservers() {
-        viewModel.addFoodResult.observe(viewLifecycleOwner) { response ->
-            println("Response is $response")
-            when (response) {
-                is ApiResponse.Loading -> {
-                    binding.let {
-                        showLoading(it.viewBgWhite, it.backgroundDim)
-                    }
-                }
-                is ApiResponse.Success -> {
-                    showToast(response.data)
-                    requireView().findNavController().popBackStack()
-                }
-                is ApiResponse.Error -> {
-                    binding.let {
-                        hideLoading(it.viewBgWhite, it.backgroundDim)
-                    }
-                    showToast(response.errorMessage)
-                }
-                else -> {
-                    binding.let {
-                        hideLoading(it.viewBgWhite, it.backgroundDim)
                     }
                 }
             }
@@ -312,10 +304,5 @@ class AddFoodFragment : Fragment() {
                 getLocation()
             }
         }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 }

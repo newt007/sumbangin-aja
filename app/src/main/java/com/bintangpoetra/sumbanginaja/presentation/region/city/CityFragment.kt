@@ -13,7 +13,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bintangpoetra.sumbanginaja.R
+import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.databinding.FragmentCityBinding
+import com.bintangpoetra.sumbanginaja.domain.region.model.Region
 import com.bintangpoetra.sumbanginaja.presentation.food.FoodDetailFragmentArgs
 import com.bintangpoetra.sumbanginaja.presentation.region.adapter.RegionAdapter
 import com.bintangpoetra.sumbanginaja.utils.ext.hideLoading
@@ -22,39 +24,26 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
-class CityFragment : Fragment() {
-
-    private var _binding: FragmentCityBinding? = null
-    private val binding get() = _binding!!
+class CityFragment : BaseFragment<FragmentCityBinding>() {
 
     private val viewModel: CityViewModel by inject()
-    private lateinit var adapter: RegionAdapter
+    private val adapter: RegionAdapter by lazy { RegionAdapter { onRegionItemClick(it) } }
 
     private var provinceId = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentCityBinding.inflate(inflater, container, false)
-        return _binding?.root
-    }
+    ): FragmentCityBinding = FragmentCityBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initIntentData()
-        initUI()
-        initAdapter()
-        initObservers()
-    }
-
-    private fun initIntentData(){
+    override fun initIntent() {
         val safeArgs = arguments?.let { CityFragmentArgs.fromBundle(it) }
         provinceId = safeArgs?.idProvince ?: 0
     }
 
-    private fun initUI(){
+    override fun initUI(){
+        initRv()
         binding.toolbarAccount.apply {
             title = context.getString(R.string.title_choose_city)
             setNavigationOnClickListener {
@@ -63,7 +52,10 @@ class CityFragment : Fragment() {
         }
     }
 
-    private fun initObservers() {
+    override fun initAction() {
+    }
+
+    override fun initProcess() {
         lifecycleScope.launch {
             viewModel.citiesResult(provinceId).collect { pagingData ->
                 adapter.submitData(pagingData)
@@ -71,12 +63,10 @@ class CityFragment : Fragment() {
         }
     }
 
-    private fun initAdapter() {
-        adapter = RegionAdapter {
-            setFragmentResult(CITY_ID_KEY, bundleOf(CITY_ID_BUNDLE to it.id))
-            setFragmentResult(CITY_NAME_KEY, bundleOf(CITY_NAME_BUNDLE to it.name))
-            findNavController().navigateUp()
-        }
+    override fun initObservers() {
+    }
+
+    private fun initRv() {
         binding.rvCities.adapter = this.adapter
         binding.rvCities.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -102,10 +92,17 @@ class CityFragment : Fragment() {
         binding.rvCities.scheduleLayoutAnimation()
     }
 
+    private fun onRegionItemClick(region: Region) {
+        setFragmentResult(CITY_ID_KEY, bundleOf(CITY_ID_BUNDLE to region.id))
+        setFragmentResult(CITY_NAME_KEY, bundleOf(CITY_NAME_BUNDLE to region.name))
+        findNavController().navigateUp()
+    }
+
     companion object {
         const val CITY_ID_KEY = "CityIDKey"
         const val CITY_NAME_KEY = "CityNameKey"
         const val CITY_ID_BUNDLE = "CityIDBundle"
         const val CITY_NAME_BUNDLE = "CityIDBundle"
     }
+
 }
