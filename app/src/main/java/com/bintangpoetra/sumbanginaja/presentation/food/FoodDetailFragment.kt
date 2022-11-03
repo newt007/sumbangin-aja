@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.bintangpoetra.sumbanginaja.BuildConfig.BASE_URL
+import androidx.navigation.fragment.findNavController
 import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentFoodDetailBinding
@@ -87,6 +87,18 @@ class FoodDetailFragment : Fragment() {
                     }
                 }
             }
+
+            btnOpenMap.click {
+                val action = FoodDetailFragmentDirections.actionFoodDetailFragmentToMapFragment(
+                    name = mFood?.name ?: "",
+                    latitude = (mFood?.latitude ?: 0.0).toFloat(),
+                    longitude = (mFood?.longitude ?: 0.0).toFloat(),
+                    tag = mFood?.id.toString(),
+                )
+                findNavController().navigate(action)
+
+            }
+
         }
     }
 
