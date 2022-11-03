@@ -4,12 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bintangpoetra.sumbanginaja.R
+import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentFoodDetailBinding
 import com.bintangpoetra.sumbanginaja.domain.food.model.Food
@@ -21,50 +20,17 @@ import com.google.android.gms.maps.model.LatLng
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
-class FoodDetailFragment : Fragment() {
+class FoodDetailFragment : BaseFragment<FragmentFoodDetailBinding>() {
 
-    private var _binding: FragmentFoodDetailBinding? = null
-    private val binding get() = _binding!!
     private val foodDetailViewModel: FoodDetailViewModel by inject()
+    private val pref: PreferenceManager by lazy { getPrefManager() }
 
     private lateinit var mMap: GoogleMap
     private var foodId = 0
-
-    private val pref: PreferenceManager by lazy { getPrefManager() }
-
     private var isOwnedFood = false
-
     private var mFood: Food? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFoodDetailBinding.inflate(inflater, container, false)
-        return _binding?.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initIntentData()
-        initProcesses()
-        initUI()
-        initAction()
-        initObservers()
-    }
-
-    private fun initIntentData() {
-        val safeArgs = arguments?.let { FoodDetailFragmentArgs.fromBundle(it) }
-        foodId = safeArgs?.id ?: 0
-    }
-
-    private fun initProcesses() {
-        foodDetailViewModel.getFoodDetail(foodId)
-    }
-
-    private fun initUI() {
+    override fun initUI() {
         binding.lottieLoading.initLottie()
         binding.toolbarAccount.apply {
             title = context.getString(R.string.title_food_detail)
@@ -74,7 +40,24 @@ class FoodDetailFragment : Fragment() {
         }
     }
 
-    private fun initAction() {
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): FragmentFoodDetailBinding {
+       return FragmentFoodDetailBinding.inflate(inflater, container, false)
+    }
+
+    override fun initIntent() {
+        val safeArgs = arguments?.let { FoodDetailFragmentArgs.fromBundle(it) }
+        foodId = safeArgs?.id ?: 0
+    }
+
+    override fun initProcess() {
+        foodDetailViewModel.getFoodDetail(foodId)
+    }
+
+    override fun initAction() {
         binding.apply {
             btnDetailAction.click {
                 if (isOwnedFood) {
@@ -102,7 +85,7 @@ class FoodDetailFragment : Fragment() {
         }
     }
 
-    private fun initObservers() {
+    override fun initObservers() {
         foodDetailViewModel.foodDetailResult.observe(viewLifecycleOwner) { response ->
             Timber.d("Response is $response")
             when (response) {
@@ -161,11 +144,6 @@ class FoodDetailFragment : Fragment() {
         val i = Intent(Intent.ACTION_VIEW)
         i.data = Uri.parse(url)
         startActivity(i)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }
