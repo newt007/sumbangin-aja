@@ -11,7 +11,7 @@ SumbanginAja is food sharing app that connecting people who have surplus food an
 - [Project Structure](#project-structures)
 
 ## <a name="features"></a> Features :
-A few features SumbanginAja have on this app :
+A few features SumbanginAja's has on this app :
 
 * Login and Register
 * Get nearest surplus food around you
