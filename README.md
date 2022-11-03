@@ -62,20 +62,32 @@ A few features SumbanginAja have on this app :
     - `usecase`
 * `presentation`
   - `auth`
-    - `mapper`
-    - `model`
-    - `interactor`
-    - `usecase`
+    - `login`
+      - `fragment`
+      - `viewmodel`
+    - `register`
+      - `fragment`
+      - `viewmodel`
+  - `customview`
+  - `dialog`
   - `food`
-    - `mapper`
-    - `model`
-    - `interactor`
-    - `usecase`
+      - `fragment`
+      - `viewmodel`
+  - `home`
+      - `fragment`
+      - `viewmodel`
+  - `profile`
+      - `fragment`
+      - `viewmodel`
   - `region`
-    - `mapper`
-    - `model`
-    - `interactor`
-    - `usecase`
+      - `fragment`
+      - `viewmodel`
+  - `scanner`
+      - `fragment`
+      - `viewmodel`
+  - `splash`
+      - `fragment`
+      - `viewmodel`
 * `utils`
   - `ext`
 
