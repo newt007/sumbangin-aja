@@ -15,8 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bintangpoetra.sumbanginaja.R
+import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentHomeBinding
+import com.bintangpoetra.sumbanginaja.presentation.food.list.FoodListFragmentDirections
 import com.bintangpoetra.sumbanginaja.presentation.home.adapter.FoodAdapter
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.LOCATION_PERMISSION
 import com.bintangpoetra.sumbanginaja.utils.ext.hideShimmerLoading
@@ -29,13 +31,11 @@ import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 
-class HomeFragment : Fragment() {
-    private var _fragmentHomeBinding: FragmentHomeBinding? = null
-    private val binding get() = _fragmentHomeBinding!!
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val homeViewModel: HomeViewModel by inject()
 
-    private lateinit var adapter: FoodAdapter
+    private val adapter: FoodAdapter by lazy { FoodAdapter { toDetail(it) } }
     private var myLocation: Location? = null
     var mFusedLocationClient: FusedLocationProviderClient? = null
 
@@ -50,29 +50,28 @@ class HomeFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _fragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        return _fragmentHomeBinding?.root
+    ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
+
+    override fun initIntent() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initUI() {
+        initPermission()
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        binding.rvHome.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvHome.adapter = this.adapter
+    }
 
-        permReqLauncher.launch(LOCATION_PERMISSION)
+    override fun initProcess() {
         homeViewModel.getFoods()
-
-        initActions()
-        initObservers()
-        initAdapter()
     }
 
-    private fun initActions() {
+    override fun initAction() {
         binding.apply {
             btnFoodType.popClick {
                 updateTabState(FOOD_TYPE)
@@ -84,7 +83,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun initObservers() {
+    override fun initObservers() {
         homeViewModel.foodResult.observe(viewLifecycleOwner) { response ->
             Timber.d("Response is $response")
             when (response) {
@@ -111,16 +110,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun initAdapter() {
-        adapter = FoodAdapter { foodId ->
-            val action = HomeFragmentDirections.actionHomeFragmentToFoodDetailFragment(foodId)
-            findNavController().navigate(action)
-        }
-        binding.rvHome.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvHome.adapter = this.adapter
     }
 
     private fun updateTabState(selectedType: String) {
@@ -200,9 +189,17 @@ class HomeFragment : Fragment() {
             }
         }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _fragmentHomeBinding = null
+    private fun toDetail(foodId: Int) {
+        findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToFoodDetailFragment(
+                foodId
+            )
+        )
+    }
+
+    private fun initPermission() {
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        permReqLauncher.launch(LOCATION_PERMISSION)
     }
 
     companion object {

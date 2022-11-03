@@ -2,55 +2,33 @@ package com.bintangpoetra.sumbanginaja.presentation.auth.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bintangpoetra.sumbanginaja.R
+import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentLoginBinding
-import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_ADDRESS
-import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_EMAIL
-import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_IS_LOGIN
-import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_NAME
-import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_TOKEN
-import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_USER_ID
-import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_USER_NAME
-import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.*
 import org.koin.android.ext.android.inject
 
-class LoginFragment : Fragment() {
-
-    private var _fragmentLoginBinding: FragmentLoginBinding? = null
-    private val binding get() = _fragmentLoginBinding!!
+class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private val loginViewModel: LoginViewModel by inject()
 
-    private val pref: PreferenceManager by lazy { getPrefManager() }
-
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _fragmentLoginBinding = FragmentLoginBinding.inflate(inflater, container, false)
-        return _fragmentLoginBinding?.root
+    ): FragmentLoginBinding = FragmentLoginBinding.inflate(layoutInflater, container, false)
+
+    override fun initIntent() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initUI()
-        initObservers()
-        initAction()
-    }
-
-    private fun initUI() {
+    override fun initUI() {
         binding.lottieLogin.initLottie()
     }
 
-    private fun initAction() {
+    override fun initAction() {
         binding.apply {
             btnLogin.click {
                 val email = binding.edtEmail.text.toString()
@@ -74,7 +52,10 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun initObservers() {
+    override fun initProcess() {
+    }
+
+    override fun initObservers() {
         loginViewModel.loginUserResult.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ApiResponse.Loading -> {
