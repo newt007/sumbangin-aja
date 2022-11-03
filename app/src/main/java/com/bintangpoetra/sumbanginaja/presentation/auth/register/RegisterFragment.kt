@@ -2,46 +2,37 @@ package com.bintangpoetra.sumbanginaja.presentation.auth.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bintangpoetra.sumbanginaja.R
+import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentRegisterBinding
 import com.bintangpoetra.sumbanginaja.utils.ext.*
 import org.koin.android.ext.android.inject
 
-class RegisterFragment: Fragment() {
-
-    private var _fragmentRegisterBinding: FragmentRegisterBinding? = null
-    private val binding get() = _fragmentRegisterBinding!!
+class RegisterFragment: BaseFragment<FragmentRegisterBinding>() {
 
     private val registerViewModel: RegisterViewModel by inject()
 
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _fragmentRegisterBinding = FragmentRegisterBinding.inflate(inflater, container, false)
-        return _fragmentRegisterBinding?.root
+    ): FragmentRegisterBinding = FragmentRegisterBinding.inflate(inflater, container, false)
+
+    override fun initIntent() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initUI()
-        initAction()
-        initObservers()
+    override fun initProcess() {
     }
 
-    private fun initUI() {
+    override fun initUI() {
         binding.lottieRegister.initLottie()
     }
 
-    private fun initAction() {
+    override fun initAction() {
         binding.apply {
             btnRegister.click {
                 val fullName = binding.edtFullName.text.toString()
@@ -72,7 +63,7 @@ class RegisterFragment: Fragment() {
         }
     }
 
-    private fun initObservers() {
+    override fun initObservers() {
         registerViewModel.registerUserResult.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ApiResponse.Loading -> {
@@ -98,6 +89,5 @@ class RegisterFragment: Fragment() {
             }
         }
     }
-
 
 }

@@ -4,48 +4,42 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bintangpoetra.sumbanginaja.R
+import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentFoodListBinding
 import com.bintangpoetra.sumbanginaja.presentation.home.adapter.FoodAdapter
-import com.bintangpoetra.sumbanginaja.utils.ext.gone
-import com.bintangpoetra.sumbanginaja.utils.ext.click
-import com.bintangpoetra.sumbanginaja.utils.ext.hideShimmerLoading
-import com.bintangpoetra.sumbanginaja.utils.ext.show
-import com.bintangpoetra.sumbanginaja.utils.ext.showShimmerLoading
+import com.bintangpoetra.sumbanginaja.utils.ext.*
 import org.koin.android.ext.android.inject
 
-class FoodListFragment: Fragment() {
-
-    private var _binding: FragmentFoodListBinding? = null
-    private val binding get() = _binding!!
+class FoodListFragment : BaseFragment<FragmentFoodListBinding>() {
 
     private val viewModel: FoodListViewModel by inject()
 
     private val adapter: FoodAdapter by lazy { FoodAdapter { toDetail(it) } }
 
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFoodListBinding.inflate(inflater, container, false)
-        return _binding?.root
+    ): FragmentFoodListBinding = FragmentFoodListBinding.inflate(inflater, container, false)
+
+    override fun initIntent() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initUI() {
+        binding.rvHome.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvHome.adapter = this.adapter
 
-        initUI()
-        initAction()
-        initProcess()
-        initObservers()
+        binding.toolbarFood.apply {
+            title = context.getString(R.string.title_my_food_list)
+        }
     }
 
-    private fun initAction() {
+    override fun initAction() {
         binding.apply {
             toolbarFood.setNavigationOnClickListener {
                 findNavController().popBackStack()
@@ -59,23 +53,13 @@ class FoodListFragment: Fragment() {
         }
     }
 
-    private fun initUI() {
-        binding.rvHome.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvHome.adapter = this.adapter
-
-        binding.toolbarFood.apply {
-            title = context.getString(R.string.title_my_food_list)
-        }
-    }
-
-    private fun initProcess() {
+    override fun initProcess() {
         viewModel.getMyFoodsList()
     }
 
-    private fun initObservers() {
+    override fun initObservers() {
         viewModel.foodResult.observe(viewLifecycleOwner) { response ->
-            when(response) {
+            when (response) {
                 is ApiResponse.Loading -> {
                     binding.let {
                         it.llEmptyState.gone()
@@ -115,7 +99,11 @@ class FoodListFragment: Fragment() {
     }
 
     private fun toDetail(foodId: Int) {
-        findNavController().navigate(FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(foodId))
+        findNavController().navigate(
+            FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(
+                foodId
+            )
+        )
     }
 
 }

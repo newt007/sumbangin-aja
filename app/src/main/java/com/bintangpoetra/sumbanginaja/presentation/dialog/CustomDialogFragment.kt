@@ -62,7 +62,6 @@ class CustomDialogFragment : DialogFragment() {
         initAction()
     }
 
-
     private fun initUI() {
         binding.apply {
             illustrationImage?.let {
@@ -74,6 +73,7 @@ class CustomDialogFragment : DialogFragment() {
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun initAction() {
         binding.apply {
             val onClickCallBack: () -> Unit = arguments?.getSerializable(KEY_ON_CLICK) as () -> Unit

@@ -8,40 +8,28 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bintangpoetra.sumbanginaja.R
+import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentAccountBinding
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.*
 import org.koin.android.ext.android.inject
 
-class AccountFragment : Fragment() {
-
-    private var _fragmentAccountBinding: FragmentAccountBinding? = null
-    private val binding get() = _fragmentAccountBinding!!
+class AccountFragment : BaseFragment<FragmentAccountBinding>() {
 
     private val accountViewModel: AccountViewModel by inject()
-    private lateinit var pref: PreferenceManager
+    private val pref: PreferenceManager by lazy { getPrefManager() }
 
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _fragmentAccountBinding = FragmentAccountBinding.inflate(inflater, container, false)
-        return _fragmentAccountBinding?.root
+    ): FragmentAccountBinding = FragmentAccountBinding.inflate(inflater, container, false)
+
+    override fun initIntent() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        pref = PreferenceManager(requireContext())
-
-        initUI()
-        initAction()
-        initProcess()
-        initObservers()
-    }
-
-    private fun initUI() {
+    override fun initUI() {
         binding.apply {
             lottieAccount.initLottie()
             tilEmail.disable()
@@ -54,7 +42,7 @@ class AccountFragment : Fragment() {
         }
     }
 
-    private fun initAction() {
+    override fun initAction() {
         binding.apply {
             btnSave.click {
                 val fullName = edtFullName.text.toString()
@@ -79,13 +67,13 @@ class AccountFragment : Fragment() {
         }
     }
 
-    private fun initProcess() {
+    override fun initProcess() {
         pref.getToken?.let { token ->
             accountViewModel.getProfileDetail()
         }
     }
 
-    private fun initObservers() {
+    override fun initObservers() {
         accountViewModel.profileDetailResult.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ApiResponse.Loading -> {

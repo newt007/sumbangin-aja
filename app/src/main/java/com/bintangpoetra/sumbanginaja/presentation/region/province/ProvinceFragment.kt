@@ -2,10 +2,8 @@ package com.bintangpoetra.sumbanginaja.presentation.region.province
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -13,39 +11,33 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bintangpoetra.sumbanginaja.R
+import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.databinding.FragmentProvinceBinding
+import com.bintangpoetra.sumbanginaja.domain.region.model.Region
 import com.bintangpoetra.sumbanginaja.presentation.region.adapter.RegionAdapter
+import com.bintangpoetra.sumbanginaja.presentation.region.city.CityFragment
 import com.bintangpoetra.sumbanginaja.utils.ext.hideLoading
 import com.bintangpoetra.sumbanginaja.utils.ext.showLoading
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
-class ProvinceFragment : Fragment() {
-
-    private var _binding: FragmentProvinceBinding? = null
-    private val binding get() = _binding!!
+class ProvinceFragment : BaseFragment<FragmentProvinceBinding>() {
 
     private val viewModel: ProvinceViewModel by inject()
-    private lateinit var adapter: RegionAdapter
+    private val adapter: RegionAdapter by lazy { RegionAdapter { onRegionItemClick(it) } }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentProvinceBinding.inflate(inflater, container, false)
-        return _binding?.root
+    ): FragmentProvinceBinding = FragmentProvinceBinding.inflate(inflater, container, false)
+
+    override fun initIntent() {
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initUI()
+    override fun initUI() {
         initAdapter()
-        initObservers()
-    }
-
-    private fun initUI(){
         binding.toolbarAccount.apply {
             title = context.getString(R.string.title_choose_province)
             setNavigationOnClickListener {
@@ -54,7 +46,10 @@ class ProvinceFragment : Fragment() {
         }
     }
 
-    private fun initObservers() {
+    override fun initAction() {
+    }
+
+    override fun initProcess() {
         lifecycleScope.launch {
             viewModel.provincesResult.collect { pagingData ->
                 adapter.submitData(pagingData)
@@ -62,13 +57,11 @@ class ProvinceFragment : Fragment() {
         }
     }
 
+    override fun initObservers() {
+    }
+
     private fun initAdapter() {
-        adapter = RegionAdapter {
-            setFragmentResult(PROVINCE_ID_KEY, bundleOf(PROVINCE_ID_BUNDLE to it.id))
-            setFragmentResult(PROVINCE_NAME_KEY, bundleOf(PROVINCE_NAME_BUNDLE to it.name))
-            findNavController().navigateUp()
-        }
-        binding.rvProvince.adapter = this.adapter
+        binding.rvProvince.adapter = adapter
         binding.rvProvince.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapter.addLoadStateListener { loadState ->
@@ -91,6 +84,18 @@ class ProvinceFragment : Fragment() {
             }
         }
         binding.rvProvince.scheduleLayoutAnimation()
+    }
+
+    private fun onRegionItemClick(region: Region) {
+        setFragmentResult(
+            CityFragment.CITY_ID_KEY,
+            bundleOf(CityFragment.CITY_ID_BUNDLE to region.id)
+        )
+        setFragmentResult(
+            CityFragment.CITY_NAME_KEY,
+            bundleOf(CityFragment.CITY_NAME_BUNDLE to region.name)
+        )
+        findNavController().navigateUp()
     }
 
     companion object {
