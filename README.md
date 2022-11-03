@@ -1,4 +1,4 @@
-# Android Development - Thisable
+# SumbanginAja
 
 ## <a name="introduction"></a> Introduction :
 SumbanginAja is food sharing app that connecting people who have surplus food and people who wish or needs the food. SumbanginAja App Powered by Kotlin, Android Jetpack, and Koin, also implementing [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
