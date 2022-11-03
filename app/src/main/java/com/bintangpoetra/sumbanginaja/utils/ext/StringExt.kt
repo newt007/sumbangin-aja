@@ -25,6 +25,10 @@ fun String.isTheFoodOwner(id: String): Boolean {
     return this == id
 }
 
+fun String.toSumbanginAjaImageUrl(): String {
+    return "https://sumbangin.jelajahin.com/$this"
+}
+
 fun Food.generateMessageToFoodRanger(): String {
     val user = this.user
     val food = this

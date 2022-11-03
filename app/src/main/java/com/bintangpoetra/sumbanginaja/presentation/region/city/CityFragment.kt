@@ -63,8 +63,6 @@ class CityFragment : BaseFragment<FragmentCityBinding>() {
         }
     }
 
-    override fun initObservers() {
-    }
 
     private fun initRv() {
         binding.rvCities.adapter = this.adapter
@@ -104,5 +102,7 @@ class CityFragment : BaseFragment<FragmentCityBinding>() {
         const val CITY_ID_BUNDLE = "CityIDBundle"
         const val CITY_NAME_BUNDLE = "CityIDBundle"
     }
+
+    override fun initObservers() {}
 
 }

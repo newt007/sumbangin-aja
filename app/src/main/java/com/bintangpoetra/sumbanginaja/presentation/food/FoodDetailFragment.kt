@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import com.bintangpoetra.sumbanginaja.BuildConfig.BASE_URL
+import androidx.navigation.fragment.findNavController
 import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
@@ -22,36 +22,39 @@ import timber.log.Timber
 
 class FoodDetailFragment : BaseFragment<FragmentFoodDetailBinding>() {
 
-    private lateinit var mMap: GoogleMap
-    private var foodId = 0
-
+    private val foodDetailViewModel: FoodDetailViewModel by inject()
     private val pref: PreferenceManager by lazy { getPrefManager() }
 
+    private lateinit var mMap: GoogleMap
+    private var foodId = 0
     private var isOwnedFood = false
-
     private var mFood: Food? = null
 
-    private val foodDetailViewModel: FoodDetailViewModel by inject()
+    override fun initUI() {
+        binding.lottieLoading.initLottie()
+        binding.toolbarAccount.apply {
+            title = context.getString(R.string.title_food_detail)
+            setNavigationOnClickListener {
+                it.findNavController().popBackStack()
+            }
+        }
+    }
 
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): FragmentFoodDetailBinding = FragmentFoodDetailBinding.inflate(inflater, container, false)
+    ): FragmentFoodDetailBinding {
+       return FragmentFoodDetailBinding.inflate(inflater, container, false)
+    }
 
     override fun initIntent() {
         val safeArgs = arguments?.let { FoodDetailFragmentArgs.fromBundle(it) }
         foodId = safeArgs?.id ?: 0
     }
 
-    override fun initUI() {
-        binding.lottieLoading.initLottie()
-        binding.toolbarAccount.apply {
-            title = context.getString(R.string.title_add_food)
-            setNavigationOnClickListener {
-                it.findNavController().popBackStack()
-            }
-        }
+    override fun initProcess() {
+        foodDetailViewModel.getFoodDetail(foodId)
     }
 
     override fun initAction() {
@@ -67,11 +70,19 @@ class FoodDetailFragment : BaseFragment<FragmentFoodDetailBinding>() {
                     }
                 }
             }
-        }
-    }
 
-    override fun initProcess() {
-        foodDetailViewModel.getFoodDetail(foodId)
+            btnOpenMap.click {
+                val action = FoodDetailFragmentDirections.actionFoodDetailFragmentToMapFragment(
+                    name = mFood?.name ?: "",
+                    latitude = (mFood?.latitude ?: 0.0).toFloat(),
+                    longitude = (mFood?.longitude ?: 0.0).toFloat(),
+                    tag = mFood?.id.toString(),
+                )
+                findNavController().navigate(action)
+
+            }
+
+        }
     }
 
     override fun initObservers() {
@@ -85,13 +96,13 @@ class FoodDetailFragment : BaseFragment<FragmentFoodDetailBinding>() {
                     val food = response.data
                     mFood = food
                     binding.apply {
-                        imvFood.setImageUrl(BASE_URL + food.images)
+                        imvFood.setImageUrl(food.images.toSumbanginAjaImageUrl())
                         imvFoodOwner.setImageUrl(food.user?.profileUsers.toString())
 
                         tvFoodName.text = food.name
                         tvFoodOwner.text = food.user?.name
                         tvFoodDescription.text = food.descriptions
-                        tvAddress.text = food.user?.address
+                        tvAddress.text = food.address
 
                         if (food.user?.id.toString().isTheFoodOwner(pref.getUserId.toString())) {
                             isOwnedFood = true
