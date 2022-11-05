@@ -72,7 +72,7 @@ class RegisterFragment: BaseFragment<FragmentRegisterBinding>() {
                     }
                 }
                 is ApiResponse.Success -> {
-                    showToast(response.data)
+                    showCustomToast(response.data)
                     requireView().findNavController().popBackStack()
 
                 }
