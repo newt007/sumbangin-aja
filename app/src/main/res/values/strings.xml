@@ -85,5 +85,10 @@
     <string name="action_back_to_home">Kembali ke Beranda</string>
     <string name="action_close">Tutup</string>
     <string name="action_take_me_there">Arahkan Saya</string>
+    <string name="action_start">Mulai Menggunakan</string>
+    <string name="label_welcoming_onboarding">Salam hangat dari kami untuk para Food Rangers. Berbagi tanpa Merugi</string>
+    <string name="title_ask_permission_location">Perizinan Layanan Lokasi</string>
+    <string name="label_location_access">Kami meminta akses lokasi anda hanya untuk meningkatkan pengalaman pengguna dengan cara mencari makanan terdekat di lokasi anda</string>
+    <string name="action_allowed">Izinkan</string>
 
 </resources>
