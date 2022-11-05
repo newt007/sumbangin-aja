@@ -170,7 +170,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         mFusedLocationClient?.lastLocation?.addOnCompleteListener {
             myLocation = it.result
-            Timber.d("location latitude ${it.result.latitude}")
             adapter.setMyLocation(it.result)
         }
     }

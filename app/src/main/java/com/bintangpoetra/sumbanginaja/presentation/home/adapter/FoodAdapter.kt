@@ -71,7 +71,6 @@ class FoodAdapter(private val onClick: (id: Int) -> Unit) :
                 tvFoodOwnerAddress.text = food.address
                 tvFoodOwner.text = food.user?.name
                 tvDistance.text = distance.toDistance()
-
                 imgFoodOwner.setImageUrl(food.user?.profileUsers.toString())
                 imgFood.setImageUrl(food.images.toSumbanginAjaImageUrl())
             }

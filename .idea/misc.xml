@@ -27,6 +27,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.2482456140350877" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_onboarding.xml" value="0.2057017543859649" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.26096491228070173" />
         <entry key="app/src/main/res/layout/fragment_province.xml" value="0.2482456140350877" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.26096491228070173" />
