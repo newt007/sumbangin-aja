@@ -2,7 +2,6 @@ package com.bintangpoetra.sumbanginaja.domain.food.model
 
 import com.bintangpoetra.sumbanginaja.data.auth.model.UserItem
 import com.bintangpoetra.sumbanginaja.utils.ext.emptyString
-import com.google.gson.annotations.SerializedName
 
 data class Food(
     val id: Int = 0,

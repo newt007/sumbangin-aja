@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.domain.auth.AuthUseCase
-import com.bintangpoetra.sumbanginaja.domain.auth.model.User
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(

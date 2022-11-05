@@ -5,14 +5,12 @@ import android.location.Location
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.databinding.FoodItemBinding
 import com.bintangpoetra.sumbanginaja.domain.food.model.Food
 import com.bintangpoetra.sumbanginaja.utils.ext.orZero
 import com.bintangpoetra.sumbanginaja.utils.ext.setImageUrl
 import com.bintangpoetra.sumbanginaja.utils.ext.toDistance
 import com.bintangpoetra.sumbanginaja.utils.ext.toSumbanginAjaImageUrl
-import com.bumptech.glide.Glide
 import timber.log.Timber
 
 @SuppressLint("NotifyDataSetChanged")

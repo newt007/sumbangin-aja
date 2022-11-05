@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import com.airbnb.lottie.LottieAnimationView
-import com.bintangpoetra.sumbanginaja.BuildConfig
 import com.bintangpoetra.sumbanginaja.R
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.ShimmerFrameLayout

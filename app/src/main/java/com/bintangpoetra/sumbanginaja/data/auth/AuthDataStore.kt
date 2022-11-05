@@ -1,11 +1,9 @@
 package com.bintangpoetra.sumbanginaja.data.auth
 
 import com.bintangpoetra.sumbanginaja.data.auth.remote.AuthService
-import com.bintangpoetra.sumbanginaja.data.lib.AlternateBaseResponse
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.domain.auth.mapper.toDomain
 import com.bintangpoetra.sumbanginaja.domain.auth.model.User
-import com.bintangpoetra.sumbanginaja.utils.ConstVal
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

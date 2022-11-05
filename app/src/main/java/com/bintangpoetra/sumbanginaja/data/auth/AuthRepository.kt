@@ -1,6 +1,5 @@
 package com.bintangpoetra.sumbanginaja.data.auth
 
-import com.bintangpoetra.sumbanginaja.data.lib.AlternateBaseResponse
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.domain.auth.model.User
 import kotlinx.coroutines.flow.Flow

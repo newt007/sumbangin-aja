@@ -5,13 +5,11 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -19,21 +17,17 @@ import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentAddFoodBinding
-import com.bintangpoetra.sumbanginaja.domain.region.model.Region
-import com.bintangpoetra.sumbanginaja.presentation.home.HomeFragmentDirections
 import com.bintangpoetra.sumbanginaja.presentation.region.city.CityFragment
 import com.bintangpoetra.sumbanginaja.presentation.region.province.ProvinceFragment
 import com.bintangpoetra.sumbanginaja.utils.ConstVal
 import com.bintangpoetra.sumbanginaja.utils.ext.*
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 import java.io.File
 
 class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {

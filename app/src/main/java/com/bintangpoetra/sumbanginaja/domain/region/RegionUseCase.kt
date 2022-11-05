@@ -1,7 +1,6 @@
 package com.bintangpoetra.sumbanginaja.domain.region
 
 import androidx.paging.PagingData
-import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.domain.region.model.Region
 import kotlinx.coroutines.flow.Flow
 

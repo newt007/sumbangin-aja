@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import com.bintangpoetra.sumbanginaja.presentation.dialog.BarcodeDialogFragment
 import com.bintangpoetra.sumbanginaja.presentation.dialog.CustomDialogFragment
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_DESC
-import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_FOOD_CODE
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_IMAGE_RES
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_ON_CLICK
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_RAW_STRING

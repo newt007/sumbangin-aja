@@ -1,9 +1,7 @@
 package com.bintangpoetra.sumbanginaja.presentation.region.city
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
@@ -16,7 +14,6 @@ import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.databinding.FragmentCityBinding
 import com.bintangpoetra.sumbanginaja.domain.region.model.Region
-import com.bintangpoetra.sumbanginaja.presentation.food.FoodDetailFragmentArgs
 import com.bintangpoetra.sumbanginaja.presentation.region.adapter.RegionAdapter
 import com.bintangpoetra.sumbanginaja.utils.ext.hideLoading
 import com.bintangpoetra.sumbanginaja.utils.ext.showLoading

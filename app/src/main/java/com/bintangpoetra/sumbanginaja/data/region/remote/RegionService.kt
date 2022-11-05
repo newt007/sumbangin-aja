@@ -1,11 +1,9 @@
 package com.bintangpoetra.sumbanginaja.data.region.remote
 
-import com.bintangpoetra.sumbanginaja.data.food.model.FoodItem
 import com.bintangpoetra.sumbanginaja.data.lib.BaseResponse
 import com.bintangpoetra.sumbanginaja.data.region.model.RegionItem
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface RegionService {
 

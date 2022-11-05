@@ -2,7 +2,6 @@ package com.bintangpoetra.sumbanginaja.domain.auth
 
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.domain.auth.model.User
-import com.google.android.gms.common.api.Api
 import kotlinx.coroutines.flow.Flow
 
 interface AuthUseCase {

@@ -12,7 +12,6 @@ import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
 import androidx.fragment.app.DialogFragment
 import com.bintangpoetra.sumbanginaja.databinding.DialogBarcodeBinding
-import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_FOOD_CODE
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_RAW_STRING
 import com.bintangpoetra.sumbanginaja.utils.ext.click
 import com.bintangpoetra.sumbanginaja.utils.ext.showToast
