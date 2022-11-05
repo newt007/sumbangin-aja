@@ -28,25 +28,26 @@ fun Fragment.showBarcodeDialog(foodCode: String) {
 
 }
 
-fun Fragment.showCustomDialog(
-    @DrawableRes image: Int,
-    title: String,
-    description: String,
-    btnText: String,
-    onBtnClick: () -> Unit
-) {
-    val fragmentManager = parentFragmentManager
-    val dialogFragment = CustomDialogFragment.newInstance(image, title, description, btnText, onBtnClick)
-
-    val args = Bundle()
-    with(args) {
-        args.putInt(KEY_IMAGE_RES, image)
-        args.putString(KEY_TITLE, title)
-        args.putString(KEY_DESC, description)
-        args.putString(KEY_TEXT, btnText)
-        args.putSerializable(KEY_ON_CLICK, onBtnClick as Serializable)
-        dialogFragment.arguments = this
-    }
-
-    dialogFragment.show(fragmentManager, CustomDialogFragment::class.java.simpleName)
-}
+//fun Fragment.showCustomDialog(
+//    @DrawableRes image: Int,
+//    title: String,
+//    description: String,
+//    btnText: String,
+//    onBtnClick: () -> Unit
+//) : CustomDialogFragment {
+//    val fragmentManager = parentFragmentManager
+//    val dialogFragment = CustomDialogFragment.newInstance(image, title, description, btnText, onBtnClick)
+//
+//    val args = Bundle()
+//    with(args) {
+//        args.putInt(KEY_IMAGE_RES, image)
+//        args.putString(KEY_TITLE, title)
+//        args.putString(KEY_DESC, description)
+//        args.putString(KEY_TEXT, btnText)
+//        args.putSerializable(KEY_ON_CLICK, onBtnClick as Serializable)
+//        dialogFragment.arguments = this
+//    }
+//
+//    dialogFragment.show(fragmentManager, CustomDialogFragment::class.java.simpleName)
+//    return dialogFragment
+//}
