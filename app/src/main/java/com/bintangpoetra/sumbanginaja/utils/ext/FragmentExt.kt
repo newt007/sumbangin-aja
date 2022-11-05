@@ -1,17 +1,13 @@
 package com.bintangpoetra.sumbanginaja.utils.ext
 
 import android.os.Bundle
-import androidx.annotation.DrawableRes
+import android.view.Gravity
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.presentation.dialog.BarcodeDialogFragment
-import com.bintangpoetra.sumbanginaja.presentation.dialog.CustomDialogFragment
-import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_DESC
-import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_IMAGE_RES
-import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_ON_CLICK
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_RAW_STRING
-import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_TEXT
-import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_TITLE
-import java.io.Serializable
 
 fun Fragment.showBarcodeDialog(foodCode: String) {
     val fragmentManager = parentFragmentManager
@@ -51,3 +47,20 @@ fun Fragment.showBarcodeDialog(foodCode: String) {
 //    dialogFragment.show(fragmentManager, CustomDialogFragment::class.java.simpleName)
 //    return dialogFragment
 //}
+
+@Suppress("DEPRECATION")
+fun Fragment.showCustomToast(textAlert: String?) {
+    val inflater = layoutInflater
+    val layout = inflater.inflate(
+        R.layout.layout_toast,
+        view?.findViewById(R.id.layout_custom_root)
+    )
+    val textView: TextView = layout.findViewById(R.id.txToastMessage)
+    textView.text = textAlert
+    with(Toast(context?.applicationContext)) {
+        duration = Toast.LENGTH_SHORT
+        setGravity(Gravity.CENTER or Gravity.TOP, 0, 45)
+        view = layout
+        show()
+    }
+}
