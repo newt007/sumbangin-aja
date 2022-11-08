@@ -11,6 +11,7 @@ import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_ROLE
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_TOKEN
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_USER_ID
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.KEY_USER_NAME
+import com.bintangpoetra.sumbanginaja.utils.ext.emptyString
 
 class PreferenceManager(context: Context) {
 
@@ -60,6 +61,6 @@ class PreferenceManager(context: Context) {
     val getName = prefs.getString(KEY_NAME, "")
     val getUserRole = prefs.getString(KEY_ROLE, "")
     val getEmail = prefs.getString(KEY_EMAIL, "")
-    val getToken = prefs.getString(KEY_TOKEN, "") ?: ""
+    val getToken = prefs.getString(KEY_TOKEN, "") ?: emptyString()
 
 }

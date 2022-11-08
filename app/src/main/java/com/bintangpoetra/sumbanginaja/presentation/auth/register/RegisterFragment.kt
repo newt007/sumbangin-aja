@@ -77,6 +77,7 @@ class RegisterFragment: BaseFragment<FragmentRegisterBinding>() {
 
                 }
                 is ApiResponse.Error -> {
+                    showCustomToast(response.errorMessage)
                     binding.let {
                         hideLoading(it.viewBgWhite, it.viewBgDimmer)
                     }

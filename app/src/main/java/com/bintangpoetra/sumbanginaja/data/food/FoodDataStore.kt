@@ -7,6 +7,7 @@ import com.bintangpoetra.sumbanginaja.domain.food.mapper.toDomain
 import com.bintangpoetra.sumbanginaja.domain.food.mapper.toListDomain
 import com.bintangpoetra.sumbanginaja.domain.food.model.Food
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
+import com.bintangpoetra.sumbanginaja.utils.ext.toBearer
 import com.bintangpoetra.sumbanginaja.utils.ext.toMultipart
 import com.bintangpoetra.sumbanginaja.utils.ext.toRequestBody
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +22,7 @@ class FoodDataStore(
     override fun fetchFood(): Flow<ApiResponse<List<Food>>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.fetchFood()
+            val response = api.fetchFood(pref.getToken.toBearer())
 
 //            if (response.status) {
 //                val foodData = response.data.toListDomain()
@@ -40,7 +41,7 @@ class FoodDataStore(
     override fun fetchFoodDetail(id: Int): Flow<ApiResponse<Food>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.fetchFoodDetail(id)
+            val response = api.fetchFoodDetail(id, pref.getToken.toBearer())
 
 //            if (response.status) {
 //                val foodData = response.data.toListDomain()
@@ -59,7 +60,7 @@ class FoodDataStore(
     override fun fetchFoodByUserId(): Flow<ApiResponse<List<Food>>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.fetchFoodByUserId(pref.getUserId.toString())
+            val response = api.fetchFoodByUserId(pref.getUserId.toString(), pref.getToken.toBearer())
 
             val foodData = response.data.toListDomain()
             if (foodData.isEmpty()) {
@@ -80,7 +81,7 @@ class FoodDataStore(
     ): Flow<ApiResponse<String>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.scanningFood(barcode, type, qty)
+            val response = api.scanningFood(barcode, type, qty, pref.getToken.toBearer())
             val message = response.message
 
             if (response.status) {
@@ -126,7 +127,8 @@ class FoodDataStore(
                 cityId = mCityId,
                 address = mAddress,
                 latitude = mLatitude,
-                longitude = mLongitude
+                longitude = mLongitude,
+                token = pref.getToken.toBearer()
             )
 
             if (response.status || response.success){

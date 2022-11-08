@@ -3,10 +3,7 @@ package com.bintangpoetra.sumbanginaja.di
 import com.bintangpoetra.sumbanginaja.BuildConfig
 import com.bintangpoetra.sumbanginaja.data.auth.remote.AuthService
 import com.bintangpoetra.sumbanginaja.data.food.remote.FoodService
-import com.bintangpoetra.sumbanginaja.data.lib.HeaderInterceptor
 import com.bintangpoetra.sumbanginaja.data.region.remote.RegionService
-import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -39,6 +36,14 @@ val networkModule = module {
     single { provideRegionService(get()) }
 
 }
+
+/*private fun getHeaderInterceptor(preferenceManager: PreferenceManager): Interceptor {
+    val headers = HashMap<String, String>()
+    //define default headers here
+    headers["Content-Type"] = "application/json"
+
+    return HeaderInterceptor(headers, preferenceManager)
+}*/
 
 fun provideAuthService(retrofit: Retrofit): AuthService = retrofit.create(AuthService::class.java)
 

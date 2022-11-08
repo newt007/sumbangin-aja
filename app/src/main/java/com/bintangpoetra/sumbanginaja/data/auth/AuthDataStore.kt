@@ -5,6 +5,7 @@ import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.domain.auth.mapper.toDomain
 import com.bintangpoetra.sumbanginaja.domain.auth.model.User
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
+import com.bintangpoetra.sumbanginaja.utils.ext.toBearer
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -58,7 +59,7 @@ class AuthDataStore(
     override fun getProfileDetail(): Flow<ApiResponse<User>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.getProfileDetail()
+            val response = api.getProfileDetail(pref.getToken.toBearer())
 
             if (response.status) {
                 val userData = response.data.toDomain()
@@ -75,7 +76,7 @@ class AuthDataStore(
     override fun updateProfile(name: String, address: String, phoneNumber: String): Flow<ApiResponse<User>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.updateProfile(name, address, phoneNumber)
+            val response = api.updateProfile(name, address, phoneNumber, pref.getToken.toBearer())
 
             if (response.status) {
                 val userData = response.data.toDomain()
@@ -93,7 +94,7 @@ class AuthDataStore(
         try {
             emit(ApiResponse.Loading)
 
-            val response = api.logout()
+            val response = api.logout(pref.getToken.toBearer())
             if (response.status) {
                 emit(ApiResponse.Success(response.message))
             } else {
