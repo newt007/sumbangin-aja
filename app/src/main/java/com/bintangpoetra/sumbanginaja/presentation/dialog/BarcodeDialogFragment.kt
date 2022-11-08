@@ -14,7 +14,7 @@ import androidx.fragment.app.DialogFragment
 import com.bintangpoetra.sumbanginaja.databinding.DialogBarcodeBinding
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys.KEY_RAW_STRING
 import com.bintangpoetra.sumbanginaja.utils.ext.click
-import com.bintangpoetra.sumbanginaja.utils.ext.showToast
+import com.bintangpoetra.sumbanginaja.utils.ext.showCustomToast
 
 class BarcodeDialogFragment : DialogFragment() {
 
@@ -58,6 +58,7 @@ class BarcodeDialogFragment : DialogFragment() {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun setupQR(foodCode: String) {
         val manager: WindowManager = activity?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = manager.defaultDisplay
@@ -79,7 +80,7 @@ class BarcodeDialogFragment : DialogFragment() {
             val bitmap = qrgEncoder.bitmap
             binding?.imgQrcode?.setImageBitmap(bitmap)
         } catch (e: Exception) {
-            showToast("Error occured")
+            showCustomToast("Error occured")
         }
     }
 

@@ -107,14 +107,14 @@ class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {
                     }
                 }
                 is ApiResponse.Success -> {
-                    showToast(response.data)
+                    showCustomToast(response.data)
                     requireView().findNavController().popBackStack()
                 }
                 is ApiResponse.Error -> {
                     binding.let {
                         hideLoading(it.viewBgWhite, it.backgroundDim)
                     }
-                    showToast(response.errorMessage)
+                    showCustomToast(response.errorMessage)
                 }
                 else -> {
                     binding.let {

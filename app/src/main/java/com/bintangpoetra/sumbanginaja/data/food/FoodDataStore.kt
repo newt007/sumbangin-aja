@@ -22,7 +22,7 @@ class FoodDataStore(
     override fun fetchFood(): Flow<ApiResponse<List<Food>>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.fetchFood(pref.getToken.toBearer())
+            val response = api.fetchFood()
 
 //            if (response.status) {
 //                val foodData = response.data.toListDomain()
@@ -41,7 +41,7 @@ class FoodDataStore(
     override fun fetchFoodDetail(id: Int): Flow<ApiResponse<Food>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.fetchFoodDetail(id, pref.getToken.toBearer())
+            val response = api.fetchFoodDetail(id)
 
 //            if (response.status) {
 //                val foodData = response.data.toListDomain()
@@ -60,7 +60,7 @@ class FoodDataStore(
     override fun fetchFoodByUserId(): Flow<ApiResponse<List<Food>>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.fetchFoodByUserId(pref.getUserId.toString(), pref.getToken.toBearer())
+            val response = api.fetchFoodByUserId(pref.getUserId.toString())
 
             val foodData = response.data.toListDomain()
             if (foodData.isEmpty()) {
@@ -81,7 +81,7 @@ class FoodDataStore(
     ): Flow<ApiResponse<String>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.scanningFood(barcode, type, qty, pref.getToken.toBearer())
+            val response = api.scanningFood(barcode, type, qty)
             val message = response.message
 
             if (response.status) {
@@ -128,7 +128,6 @@ class FoodDataStore(
                 address = mAddress,
                 latitude = mLatitude,
                 longitude = mLongitude,
-                token = pref.getToken.toBearer()
             )
 
             if (response.status || response.success){
