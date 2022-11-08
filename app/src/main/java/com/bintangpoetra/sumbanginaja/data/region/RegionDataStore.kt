@@ -8,10 +8,12 @@ import com.bintangpoetra.sumbanginaja.data.region.factory.RegionPagingFactory
 import com.bintangpoetra.sumbanginaja.data.region.remote.RegionService
 import com.bintangpoetra.sumbanginaja.domain.region.model.Region
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.DEFAULT_PAGE_SIZE
+import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import kotlinx.coroutines.flow.Flow
 
 class RegionDataStore(
-    private val api: RegionService
+    private val api: RegionService,
+    private val pref: PreferenceManager
 ): RegionRepository {
 
     override fun fetchProvinces(): Flow<PagingData<Region>> {
@@ -21,7 +23,7 @@ class RegionDataStore(
                 enablePlaceholders = true
             ),
             pagingSourceFactory = {
-                RegionPagingFactory(api)
+                RegionPagingFactory(api, pref)
             }
         ).flow
     }
@@ -33,7 +35,7 @@ class RegionDataStore(
                 enablePlaceholders = true
             ),
             pagingSourceFactory = {
-                CityPagingFactory(api, id)
+                CityPagingFactory(api, id, pref)
             }
         ).flow
     }

@@ -12,9 +12,9 @@ import org.koin.dsl.module
 val regionModule = module {
 
     factory<RegionUseCase> { RegionInteractor(get()) }
-    factory<RegionRepository> { RegionDataStore(get()) }
+    factory<RegionRepository> { RegionDataStore(get(), get()) }
 
-    single { RegionDataStore(get()) }
+    single { RegionDataStore(get(), get()) }
     single { RegionInteractor(get()) }
 
     viewModel { ProvinceViewModel(get()) }
