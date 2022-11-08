@@ -60,6 +60,6 @@ class PreferenceManager(context: Context) {
     val getName = prefs.getString(KEY_NAME, "")
     val getUserRole = prefs.getString(KEY_ROLE, "")
     val getEmail = prefs.getString(KEY_EMAIL, "")
-    val getToken = prefs.getString(KEY_TOKEN, "")
+    val getToken = prefs.getString(KEY_TOKEN, "") ?: ""
 
 }

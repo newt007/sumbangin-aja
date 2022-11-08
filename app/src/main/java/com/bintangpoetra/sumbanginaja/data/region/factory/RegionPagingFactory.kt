@@ -7,13 +7,16 @@ import com.bintangpoetra.sumbanginaja.domain.region.mapper.toListDomain
 import com.bintangpoetra.sumbanginaja.domain.region.model.Region
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.DEFAULT_PAGE_INDEX
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.DEFAULT_PAGE_SIZE
+import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
+import com.bintangpoetra.sumbanginaja.utils.ext.toBearer
 
 class RegionPagingFactory(
     private val service: RegionService,
+    private val pref: PreferenceManager
 ) : PagingSource<Int, Region>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Region> {
-        val result = service.fetchProvinces()
+        val result = service.fetchProvinces(pref.getToken.toBearer())
         val page = params.key ?: DEFAULT_PAGE_INDEX
         return LoadResult.Page(
             data = result.data.toListDomain(),
