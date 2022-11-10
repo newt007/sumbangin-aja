@@ -18,10 +18,7 @@ import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentHomeBinding
 import com.bintangpoetra.sumbanginaja.presentation.home.adapter.FoodAdapter
 import com.bintangpoetra.sumbanginaja.utils.ConstVal.LOCATION_PERMISSION
-import com.bintangpoetra.sumbanginaja.utils.ext.hideShimmerLoading
-import com.bintangpoetra.sumbanginaja.utils.ext.popClick
-import com.bintangpoetra.sumbanginaja.utils.ext.showExitaAppDialog
-import com.bintangpoetra.sumbanginaja.utils.ext.showShimmerLoading
+import com.bintangpoetra.sumbanginaja.utils.ext.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.koin.android.ext.android.inject
