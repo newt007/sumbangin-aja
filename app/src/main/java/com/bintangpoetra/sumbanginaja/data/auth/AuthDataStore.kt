@@ -25,6 +25,7 @@ class AuthDataStore(
             val response = api.loginUser(email, password)
             if (response.status || response.success) {
                 val userData = response.data.toDomain()
+                Timber.d("Here! I AM")
                 pref.apply {
                     storeLoginData(userData)
                 }

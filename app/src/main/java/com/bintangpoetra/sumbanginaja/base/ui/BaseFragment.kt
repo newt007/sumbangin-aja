@@ -1,14 +1,20 @@
 package com.bintangpoetra.sumbanginaja.base.ui
 
+import android.content.Context
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
+import androidx.core.location.LocationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.presentation.dialog.CustomDialogFragment
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys
+import com.bintangpoetra.sumbanginaja.utils.ConstVal
+import com.bintangpoetra.sumbanginaja.utils.ext.showConfirmDialog
 import java.io.Serializable
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
@@ -31,6 +37,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
         initIntent()
         initUI()
+        initServicesCheck()
         initAction()
         initProcess()
         initObservers()
@@ -55,6 +62,30 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     abstract fun initProcess()
 
     abstract fun initObservers()
+
+    private fun initServicesCheck(){
+        if (!isLocationEnabled()) {
+            showPermissionDialog()
+        }
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return LocationManagerCompat.isLocationEnabled(locationManager)
+    }
+
+    private fun showPermissionDialog(){
+        showCustomDialog(
+            image = R.drawable.ic_enable_location,
+            title = getString(R.string.title_ask_permission_location),
+            description = getString(R.string.label_location_access),
+            btnText = getString(R.string.action_allowed),
+            onBtnClick = {
+                dismissCustomDialog()
+                initServicesCheck()
+            }
+        )
+    }
 
     protected fun showCustomDialog(
         @DrawableRes image: Int,

@@ -8,6 +8,7 @@ import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentLoginBinding
+import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.*
 import org.koin.android.ext.android.inject
 
