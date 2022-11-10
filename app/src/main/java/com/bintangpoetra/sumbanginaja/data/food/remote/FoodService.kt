@@ -11,13 +11,11 @@ interface FoodService {
 
     @GET("foods")
     suspend fun fetchFood(
-        @Header("Authorization") token: String,
     ): BaseResponse<List<FoodItem>>
 
     @GET("foods/{id}/show")
     suspend fun fetchFoodDetail(
         @Path("id") id: Int,
-        @Header("Authorization") token: String,
     ): BaseResponse<FoodItem>
 
 
@@ -33,14 +31,12 @@ interface FoodService {
         @Part("address") address: RequestBody,
         @Part("latitude") latitude: RequestBody?,
         @Part("longitude") longitude: RequestBody?,
-        @Header("Authorization") token: String
     ): BaseResponse<Nothing>
 
 
     @GET("food/{id}")
     suspend fun fetchFoodByUserId(
         @Path("id") id: String,
-        @Header("Authorization") token: String
     ): BaseResponse<List<FoodItem>>
 
     @POST("scan")
@@ -49,7 +45,6 @@ interface FoodService {
         @Field("barcode") barcode: String,
         @Field("type") type: String,
         @Field("qty") qty: String,
-        @Header("Authorization") token: String
     ): AlternateBaseResponse
 
 }

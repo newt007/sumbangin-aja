@@ -2,18 +2,22 @@ package com.bintangpoetra.sumbanginaja.data.auth
 
 import com.bintangpoetra.sumbanginaja.data.auth.remote.AuthService
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
+import com.bintangpoetra.sumbanginaja.di.networkModule
+import com.bintangpoetra.sumbanginaja.di.preferenceModule
 import com.bintangpoetra.sumbanginaja.domain.auth.mapper.toDomain
 import com.bintangpoetra.sumbanginaja.domain.auth.model.User
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
 import com.bintangpoetra.sumbanginaja.utils.ext.toBearer
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
 import timber.log.Timber
 
 class AuthDataStore(
     private val api: AuthService,
     private val pref: PreferenceManager
-): AuthRepository {
+) : AuthRepository {
 
     override fun loginUser(email: String, password: String): Flow<ApiResponse<User>> = flow {
         try {
@@ -25,6 +29,13 @@ class AuthDataStore(
                 pref.apply {
                     storeLoginData(userData)
                 }
+
+                /**
+                 * reloadModule() is a function to unload and load network and preferences module
+                 * in order to reinitialized the module
+                 * */
+
+                reloadModule()
                 emit(ApiResponse.Success(userData))
             } else {
                 emit(ApiResponse.Error(response.message))
@@ -60,7 +71,7 @@ class AuthDataStore(
     override fun getProfileDetail(): Flow<ApiResponse<User>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.getProfileDetail(pref.getToken.toBearer())
+            val response = api.getProfileDetail()
 
             if (response.status) {
                 val userData = response.data.toDomain()
@@ -74,10 +85,14 @@ class AuthDataStore(
         }
     }
 
-    override fun updateProfile(name: String, address: String, phoneNumber: String): Flow<ApiResponse<User>> = flow {
+    override fun updateProfile(
+        name: String,
+        address: String,
+        phoneNumber: String
+    ): Flow<ApiResponse<User>> = flow {
         try {
             emit(ApiResponse.Loading)
-            val response = api.updateProfile(name, address, phoneNumber, pref.getToken.toBearer())
+            val response = api.updateProfile(name, address, phoneNumber)
 
             if (response.status) {
                 val userData = response.data.toDomain()
@@ -95,8 +110,9 @@ class AuthDataStore(
         try {
             emit(ApiResponse.Loading)
 
-            val response = api.logout(pref.getToken.toBearer())
+            val response = api.logout()
             if (response.status) {
+                pref.clearAllPreferences()
                 emit(ApiResponse.Success(response.message))
             } else {
                 emit(ApiResponse.Error(response.message))
@@ -105,6 +121,13 @@ class AuthDataStore(
             emit(ApiResponse.Error(ex.message.toString()))
             ex.printStackTrace()
         }
+    }
+
+    private fun reloadModule() {
+        unloadKoinModules(preferenceModule)
+        loadKoinModules(preferenceModule)
+        unloadKoinModules(networkModule)
+        loadKoinModules(networkModule)
     }
 
 }

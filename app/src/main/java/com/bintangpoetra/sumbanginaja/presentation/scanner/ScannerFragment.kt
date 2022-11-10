@@ -73,7 +73,7 @@ class ScannerFragment : BaseFragment<FragmentBarcodeScannerBinding>(),
                     binding.let {
                         hideLoading(it.viewBgWhite, it.backgroundDim)
                     }
-                    showToast(response.errorMessage)
+                    showCustomToast(response.errorMessage)
                 }
                 else -> {
                     binding.let {

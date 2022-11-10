@@ -1,14 +1,9 @@
 package com.bintangpoetra.sumbanginaja.utils.ext
 
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.utils.PreferenceManager
-
-fun Fragment.showToast(message: String) {
-    Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
-}
 
 fun Fragment.showConfirmDialog(onPositiveClick:() -> Unit){
     AlertDialog.Builder(requireContext()).apply {

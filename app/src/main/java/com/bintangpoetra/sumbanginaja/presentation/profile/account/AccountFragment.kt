@@ -66,9 +66,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
     }
 
     override fun initProcess() {
-        pref.getToken?.let { token ->
-            accountViewModel.getProfileDetail()
-        }
+        accountViewModel.getProfileDetail()
     }
 
     override fun initObservers() {
@@ -102,7 +100,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
             }
         }
         accountViewModel.updateProfileResult.observe(viewLifecycleOwner) { response ->
-            when(response) {
+            when (response) {
                 is ApiResponse.Loading -> {
                     binding.let {
                         showLoading(it.viewBgWhite, it.viewBgDimmer)
@@ -111,7 +109,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
                 is ApiResponse.Success -> {
                     binding.apply {
                         hideLoading(viewBgWhite, viewBgDimmer)
-                        showToast(getString(R.string.message_update_profile_success))
+                        showCustomToast(getString(R.string.message_update_profile_success))
                         findNavController().popBackStack()
                     }
                 }

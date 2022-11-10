@@ -23,9 +23,7 @@ interface AuthService {
     ): BaseResponse<Nothing>
 
     @GET("get-profile")
-    suspend fun getProfileDetail(
-        @Header("Authorization") token: String,
-    ): BaseResponse<UserItem>
+    suspend fun getProfileDetail(): BaseResponse<UserItem>
 
     @POST("update-profile")
     @FormUrlEncoded
@@ -33,12 +31,10 @@ interface AuthService {
         @Field("name") name: String,
         @Field("address") address: String,
         @Field("no_handphone") phoneNumber: String,
-        @Header("Authorization") token: String,
     ): BaseResponse<UserItem>
 
     @POST("logout")
     suspend fun logout(
-        @Header("Authorization") token: String,
     ): BaseResponse<Nothing>
 
 }

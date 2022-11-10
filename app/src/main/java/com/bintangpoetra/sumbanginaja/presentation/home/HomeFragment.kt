@@ -54,7 +54,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
 
     override fun initIntent() {
-
     }
 
     override fun initUI() {
@@ -171,11 +170,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         mFusedLocationClient?.lastLocation?.addOnCompleteListener {
             try {
-
                 myLocation = it.result
                 adapter.setMyLocation(it.result)
-            } catch (e: Exception){
-
+            } catch (ex: Exception) {
+                showCustomToast(ex.message)
             }
         }
     }

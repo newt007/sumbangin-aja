@@ -59,7 +59,7 @@ fun Fragment.showCustomToast(textAlert: String?) {
     textView.text = textAlert
     with(Toast(context?.applicationContext)) {
         duration = Toast.LENGTH_SHORT
-        setGravity(Gravity.CENTER or Gravity.TOP, 0, 45)
+        setGravity(Gravity.CENTER or Gravity.BOTTOM, 0, 45)
         view = layout
         show()
     }
