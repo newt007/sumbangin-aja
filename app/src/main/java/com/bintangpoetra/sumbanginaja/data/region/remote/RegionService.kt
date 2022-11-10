@@ -10,12 +10,10 @@ interface RegionService {
 
     @GET("provinces")
     suspend fun fetchProvinces(
-        @Header("Authorization") token: String,
         ): BaseResponse<List<RegionItem>>
 
     @GET("province/{id}")
     suspend fun fetchCities(
-        @Header("Authorization") token: String,
         @Path("id") id: Int
     ): BaseResponse<List<RegionItem>>
 

@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.Flow
 
 class RegionDataStore(
     private val api: RegionService,
-    private val pref: PreferenceManager
 ): RegionRepository {
 
     override fun fetchProvinces(): Flow<PagingData<Region>> {
@@ -23,7 +22,7 @@ class RegionDataStore(
                 enablePlaceholders = true
             ),
             pagingSourceFactory = {
-                RegionPagingFactory(api, pref)
+                RegionPagingFactory(api)
             }
         ).flow
     }
@@ -35,7 +34,7 @@ class RegionDataStore(
                 enablePlaceholders = true
             ),
             pagingSourceFactory = {
-                CityPagingFactory(api, id, pref)
+                CityPagingFactory(api, id)
             }
         ).flow
     }
