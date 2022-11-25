@@ -88,12 +88,12 @@ class ProvinceFragment : BaseFragment<FragmentProvinceBinding>() {
 
     private fun onRegionItemClick(region: Region) {
         setFragmentResult(
-            CityFragment.CITY_ID_KEY,
-            bundleOf(CityFragment.CITY_ID_BUNDLE to region.id)
+            PROVINCE_ID_KEY,
+            bundleOf(PROVINCE_ID_BUNDLE to region.id)
         )
         setFragmentResult(
-            CityFragment.CITY_NAME_KEY,
-            bundleOf(CityFragment.CITY_NAME_BUNDLE to region.name)
+            PROVINCE_NAME_KEY,
+            bundleOf(PROVINCE_NAME_BUNDLE to region.name)
         )
         findNavController().navigateUp()
     }

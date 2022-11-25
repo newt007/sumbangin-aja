@@ -22,12 +22,14 @@ import com.bintangpoetra.sumbanginaja.presentation.region.province.ProvinceFragm
 import com.bintangpoetra.sumbanginaja.utils.ConstVal
 import com.bintangpoetra.sumbanginaja.utils.ext.*
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 import java.io.File
 
 class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {
@@ -52,6 +54,8 @@ class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {
     }
 
     override fun initUI(){
+        initPermission()
+
         binding.lottieLoading.initLottie()
         binding.toolbarAccount.apply {
             title = context.getString(R.string.title_add_food)
@@ -258,6 +262,7 @@ class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {
         }
 
     private fun getLocation() {
+        Timber.d("Location is called")
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -286,6 +291,10 @@ class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {
                 tvLongitude.text = myLocation?.longitude.toString()
             }
         }
+    }
+    private fun initPermission() {
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        permReqLauncher.launch(ConstVal.LOCATION_PERMISSION)
     }
 
 

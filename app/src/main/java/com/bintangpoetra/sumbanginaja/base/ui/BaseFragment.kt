@@ -15,6 +15,7 @@ import com.bintangpoetra.sumbanginaja.presentation.dialog.CustomDialogFragment
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys
 import com.bintangpoetra.sumbanginaja.utils.ConstVal
 import com.bintangpoetra.sumbanginaja.utils.ext.showConfirmDialog
+import timber.log.Timber
 import java.io.Serializable
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment() {
@@ -37,10 +38,9 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
         initIntent()
         initUI()
-        initServicesCheck()
+        initServicesCheckAndCallApi()
         initAction()
         initProcess()
-        initObservers()
     }
 
     override fun onDestroyView() {
@@ -63,9 +63,12 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     abstract fun initObservers()
 
-    private fun initServicesCheck(){
+    private fun initServicesCheckAndCallApi(){
+        Timber.d("Calleddd init services")
         if (!isLocationEnabled()) {
             showPermissionDialog()
+        } else {
+            initObservers()
         }
     }
 
@@ -82,7 +85,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
             btnText = getString(R.string.action_allowed),
             onBtnClick = {
                 dismissCustomDialog()
-                initServicesCheck()
+                initServicesCheckAndCallApi()
             }
         )
     }

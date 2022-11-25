@@ -24,7 +24,6 @@ import com.google.android.gms.location.LocationServices
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
-
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val homeViewModel: HomeViewModel by inject()
