@@ -21,6 +21,7 @@ class FoodAdapter(private val onClick: (id: Int) -> Unit) :
     private var myLocation: Location? = null
 
     fun setData(listFood: List<Food>) {
+        this.listFood.clear()
         this.listFood.addAll(listFood)
         notifyDataSetChanged()
     }

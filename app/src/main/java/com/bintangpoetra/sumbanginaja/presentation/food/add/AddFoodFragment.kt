@@ -1,43 +1,39 @@
 package com.bintangpoetra.sumbanginaja.presentation.food.add
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bintangpoetra.sumbanginaja.R
-import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
+import com.bintangpoetra.sumbanginaja.base.ui.BaseLocationFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentAddFoodBinding
 import com.bintangpoetra.sumbanginaja.presentation.region.city.CityFragment
 import com.bintangpoetra.sumbanginaja.presentation.region.province.ProvinceFragment
-import com.bintangpoetra.sumbanginaja.utils.ConstVal
 import com.bintangpoetra.sumbanginaja.utils.ext.*
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 import java.io.File
 
-class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {
+class AddFoodFragment : BaseLocationFragment<FragmentAddFoodBinding>() {
 
     private val viewModel: AddFoodViewModel by inject()
-    var mFusedLocationClient: FusedLocationProviderClient? = null
 
     private var imageFile: File? = null
+    private var mUri: Uri? = null
     private var provinceId = 0
     private var provinceName = ""
     private var cityId = 0
@@ -50,11 +46,21 @@ class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {
         savedInstanceState: Bundle?
     ): FragmentAddFoodBinding = FragmentAddFoodBinding.inflate(inflater, container, false)
 
-    override fun initIntent() {
-    }
+    override fun initIntent() {}
 
     override fun initUI(){
-        initPermission()
+        mUri?.let {
+            binding.imgFoodPlaceholder.gone()
+            binding.imgFood.show()
+            binding.imgFood.setImageURI(it)
+        }
+
+        myLocation?.let {
+            binding.apply {
+                tvLatitude.text = myLocation?.latitude.toString()
+                tvLongitude.text = myLocation?.longitude.toString()
+            }
+        }
 
         binding.lottieLoading.initLottie()
         binding.toolbarAccount.apply {
@@ -92,7 +98,14 @@ class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {
         }
 
         binding.btnGetLocation.popClick {
-            getLocation()
+            initPermissionAndGetLocation()
+            getLocation{
+                myLocation = it
+                binding.apply {
+                    tvLatitude.text = it.latitude.toString()
+                    tvLongitude.text = it.longitude.toString()
+                }
+            }
         }
 
         initResultData()
@@ -244,6 +257,7 @@ class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {
         registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
             if (bitmap != null) {
                 val uri = requireActivity().getImageUri(bitmap)
+                mUri = uri
                 imageFile = requireActivity().getFileFromUri(uri)
                 binding.imgFoodPlaceholder.gone()
                 binding.imgFood.show()
@@ -254,58 +268,11 @@ class AddFoodFragment : BaseFragment<FragmentAddFoodBinding>() {
     private val pickFileImage =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             if (uri != null) {
+                mUri = uri
                 imageFile = requireActivity().getFileFromUri(uri)
                 binding.imgFoodPlaceholder.gone()
                 binding.imgFood.show()
                 binding.imgFood.setImageURI(uri)
             }
         }
-
-    private fun getLocation() {
-        Timber.d("Location is called")
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            AlertDialog.Builder(requireContext())
-                .setTitle("Location Permission Needed")
-                .setMessage("This app needs the Location permission, please accept to use location functionality")
-                .setPositiveButton(
-                    "OK"
-                ) { p0, _ ->
-                    permReqLauncher.launch(ConstVal.LOCATION_PERMISSION)
-                    p0.dismiss()
-                }
-                .create()
-                .show()
-        }
-
-        mFusedLocationClient?.lastLocation?.addOnCompleteListener {
-            myLocation = it.result
-            binding.apply {
-                tvLatitude.text = myLocation?.latitude.toString()
-                tvLongitude.text = myLocation?.longitude.toString()
-            }
-        }
-    }
-    private fun initPermission() {
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        permReqLauncher.launch(ConstVal.LOCATION_PERMISSION)
-    }
-
-
-    private val permReqLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            val granted = permissions.entries.all {
-                it.value
-            }
-            if (granted) {
-                getLocation()
-            }
-        }
-
 }

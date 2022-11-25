@@ -1,36 +1,28 @@
 package com.bintangpoetra.sumbanginaja.presentation.home
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bintangpoetra.sumbanginaja.R
-import com.bintangpoetra.sumbanginaja.base.ui.BaseFragment
+import com.bintangpoetra.sumbanginaja.base.ui.BaseLocationFragment
 import com.bintangpoetra.sumbanginaja.data.lib.ApiResponse
 import com.bintangpoetra.sumbanginaja.databinding.FragmentHomeBinding
 import com.bintangpoetra.sumbanginaja.presentation.home.adapter.FoodAdapter
-import com.bintangpoetra.sumbanginaja.utils.ConstVal.LOCATION_PERMISSION
-import com.bintangpoetra.sumbanginaja.utils.ext.*
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.bintangpoetra.sumbanginaja.utils.ext.hideShimmerLoading
+import com.bintangpoetra.sumbanginaja.utils.ext.popClick
+import com.bintangpoetra.sumbanginaja.utils.ext.showExitaAppDialog
+import com.bintangpoetra.sumbanginaja.utils.ext.showShimmerLoading
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseLocationFragment<FragmentHomeBinding>() {
 
     private val homeViewModel: HomeViewModel by inject()
 
     private val adapter: FoodAdapter by lazy { FoodAdapter { toDetail(it) } }
-    private var myLocation: Location? = null
-    var mFusedLocationClient: FusedLocationProviderClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +45,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initUI() {
-        initPermission()
 
         binding.rvHome.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -77,6 +68,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initObservers() {
+        getLocation {
+            adapter.setMyLocation(it)
+        }
+
         homeViewModel.foodResult.observe(viewLifecycleOwner) { response ->
             Timber.d("Response is $response")
             when (response) {
@@ -142,48 +137,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun getLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            AlertDialog.Builder(requireContext())
-                .setTitle("Location Permission Needed")
-                .setMessage("This app needs the Location permission, please accept to use location functionality")
-                .setPositiveButton(
-                    "OK"
-                ) { p0, _ ->
-                    permReqLauncher.launch(LOCATION_PERMISSION)
-                    p0.dismiss()
-                }
-                .create()
-                .show()
-        }
-
-        mFusedLocationClient?.lastLocation?.addOnCompleteListener {
-            try {
-                myLocation = it.result
-                adapter.setMyLocation(it.result)
-            } catch (ex: Exception) {
-                showCustomToast(ex.message)
-            }
-        }
-    }
-
-
-    private val permReqLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            val granted = permissions.entries.all {
-                it.value
-            }
-            if (granted) {
-                getLocation()
-            }
-        }
 
     private fun toDetail(foodId: Int) {
         findNavController().navigate(
@@ -191,11 +144,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 foodId
             )
         )
-    }
-
-    private fun initPermission() {
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        permReqLauncher.launch(LOCATION_PERMISSION)
     }
 
     companion object {

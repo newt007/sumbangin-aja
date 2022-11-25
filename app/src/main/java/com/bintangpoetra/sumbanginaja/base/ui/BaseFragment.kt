@@ -13,8 +13,6 @@ import androidx.viewbinding.ViewBinding
 import com.bintangpoetra.sumbanginaja.R
 import com.bintangpoetra.sumbanginaja.presentation.dialog.CustomDialogFragment
 import com.bintangpoetra.sumbanginaja.utils.BundleKeys
-import com.bintangpoetra.sumbanginaja.utils.ConstVal
-import com.bintangpoetra.sumbanginaja.utils.ext.showConfirmDialog
 import timber.log.Timber
 import java.io.Serializable
 

@@ -36,7 +36,7 @@ fun View.enabled() {
 fun ImageView.setImageUrl(url: String) {
     Glide.with(this.context)
         .load(url)
-        .placeholder(R.color.colorSoftGrey)
+        .placeholder(R.drawable.food_placeholder)
         .into(this)
 }
 
